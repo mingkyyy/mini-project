@@ -3,15 +3,21 @@ package Gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 
+
+
 public class FavoriteView extends JFrame {
-	JLabel favorite;
+	private JLabel favorite;
 	private JTextArea textArea;
+	private JButton backbutton;
 	
 	
 	public FavoriteView() {
@@ -30,7 +36,22 @@ public class FavoriteView extends JFrame {
 		panel.add(favorite);
 		panel.add(getShopPanel());
 		
+		
+		
+		backbutton=new JButton("back");
+		 backbutton.setBounds(0,0,60,30);
+		 backbutton.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						new MainView();
+						setVisible(false);
+						
+					}
+				});
+		
 		add(panel);
+		panel.add(backbutton);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 		
@@ -43,9 +64,12 @@ public class FavoriteView extends JFrame {
 		textArea.setPreferredSize(new Dimension(600, 500));
 		textArea.setBackground(Color.lightGray);
 		
+		
+		
 		JPanel panel = new JPanel();
 		panel.add(textArea);
 		panel.setBounds(50, 130, 600, 500);
+		
 		
 		
 		return panel;

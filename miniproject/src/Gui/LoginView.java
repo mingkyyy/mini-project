@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 public class LoginView extends JFrame {
 	JLabel login, id, pw;
 	JTextField idField, pwField;
-	JButton button;
+	JButton button, backbutton;
 	
 	LoginView(){
 		super("회원가입");
@@ -36,6 +36,18 @@ public class LoginView extends JFrame {
 				
 			}
 		});
+	    
+	    backbutton=new JButton("back");
+		 backbutton.setBounds(0,0,60,30);
+		 backbutton.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						new MainView();
+						setVisible(false);
+						
+					}
+				});
 		
 		login = new JLabel("로그인");
 		login.setFont(new Font("Magneto 굵게",Font.BOLD , 60));
@@ -61,6 +73,7 @@ public class LoginView extends JFrame {
 		panel.add(idField);
 		panel.add(pwField);
 		panel.add(button);
+		panel.add(backbutton);
 		
 		
 		add(panel);

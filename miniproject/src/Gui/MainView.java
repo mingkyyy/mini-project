@@ -1,8 +1,6 @@
 package Gui;
 
 import java.awt.BorderLayout;
-
-import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -14,9 +12,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class MainView extends JFrame  {
-private JButton loginButton, singUpButton, backButton;
+private JButton loginButton, singUpButton;
 private JButton findButton, myShopButton;
-private CardLayout card;
+
 
 	public MainView() {
 		super("반찬 on subway");
