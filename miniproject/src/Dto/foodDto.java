@@ -5,7 +5,7 @@ public class foodDto {
 	String foodname;
 	int storeno;
 	int foonprice;
-	int foodpcture;
+	String foodpcture;
 	public int getFoodno() {
 		return foodno;
 	}
@@ -30,11 +30,11 @@ public class foodDto {
 	public void setFoonprice(int foonprice) {
 		this.foonprice = foonprice;
 	}
-	public int getFoodpcture() {
+	public String getFoodpcture() {
 		return foodpcture;
 	}
-	public void setFoodpcture(int foodpcture) {
-		this.foodpcture = foodpcture;
+	public void setFoodpcture(String Foodpcture) {
+		this.foodpcture = Foodpcture;
 	}
 	
 	@Override

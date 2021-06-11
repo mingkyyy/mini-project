@@ -37,7 +37,6 @@ public class FavoriteView extends JFrame {
 		panel.add(getShopPanel());
 		
 		
-		
 		backbutton=new JButton("back");
 		 backbutton.setBounds(0,0,60,30);
 		 backbutton.addActionListener(new ActionListener() {
