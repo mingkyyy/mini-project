@@ -3,11 +3,9 @@ package Dto;
 public class storeDto {
 	int storeno;
 	int no;
-	String zip;
-	String adress;
-	String adress_deail;
+	String storeadress;
 	String storename;
-	int storenumber;
+	String storenumber;
 	public int getStoreno() {
 		return storeno;
 	}
@@ -20,23 +18,11 @@ public class storeDto {
 	public void setNo(int no) {
 		this.no = no;
 	}
-	public String getZip() {
-		return zip;
+	public String getStoreadress() {
+		return storeadress;
 	}
-	public void setZip(String zip) {
-		this.zip = zip;
-	}
-	public String getAdress() {
-		return adress;
-	}
-	public void setAdress(String adress) {
-		this.adress = adress;
-	}
-	public String getAdress_deail() {
-		return adress_deail;
-	}
-	public void setAdress_deail(String adress_deail) {
-		this.adress_deail = adress_deail;
+	public void setStoreadress(String storeadress) {
+		this.storeadress = storeadress;
 	}
 	public String getStorename() {
 		return storename;
@@ -44,18 +30,17 @@ public class storeDto {
 	public void setStorename(String storename) {
 		this.storename = storename;
 	}
-	public int getStorenumber() {
+	public String getStorenumber() {
 		return storenumber;
 	}
-	public void setStorenumber(int storenumber) {
+	public void setStorenumber(String storenumber) {
 		this.storenumber = storenumber;
 	}
 	@Override
 	public String toString() {
-		return "storeDto [storeno=" + storeno + ", no=" + no + ", zip=" + zip + ", adress=" + adress + ", adress_deail="
-				+ adress_deail + ", storename=" + storename + ", storenumber=" + storenumber + "]";
+		return "storeDto [storeno=" + storeno + ", no=" + no + ", storeadress=" + storeadress + ", storename="
+				+ storename + ", storenumber=" + storenumber + "]";
 	}
-	
 	
   
 }

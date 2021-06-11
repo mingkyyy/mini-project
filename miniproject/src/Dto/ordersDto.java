@@ -1,10 +1,10 @@
 package Dto;
 
-public class orderDto {
+public class ordersDto {
 	int orderno;
 	int foodno;
 	int no;
-	int orderdate;
+	String orderdata;
 	public int getOrderno() {
 		return orderno;
 	}
@@ -23,16 +23,20 @@ public class orderDto {
 	public void setNo(int no) {
 		this.no = no;
 	}
-	public int getOrderdate() {
-		return orderdate;
+	
+	public String getOrderdata() {
+		return orderdata;
 	}
-	public void setOrderdate(int orderdate) {
-		this.orderdate = orderdate;
+	public void setOrderdata(String orderdata) {
+		this.orderdata = orderdata;
 	}
 	@Override
 	public String toString() {
-		return "orderDto [orderno=" + orderno + ", foodno=" + foodno + ", no=" + no + ", orderdate=" + orderdate + "]";
+		return "orderDto [orderno=" + orderno + ", foodno=" + foodno + ", no=" + no + ", orderdata=" + orderdata
+				+ "]";
 	}
+	
+	
 	
 	
 

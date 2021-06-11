@@ -28,9 +28,8 @@ public class commonDao {
 		return instance;
 	}
 	
-	private static final String JDBC_DRIVER = "org.mariadb.jdbc.Driver";
-	private static final String DB_URL = "jdbc:mysql://localhost:3306/common?" + "useUnicode=true" + "&characterEncoding=utf8";
-	
+	private static final String JDBC_DRIVER = "org.mariadb.jdbc.Driver"; 
+	private static final String DB_URL = "jdbc:mysql://localhost:3306/ming?" + "useUnicode=true" + "&characterEncoding=utf8";
 	private static final String USERNAME = "root";
 	private static final String PASSWORD = "kmk62616261";
 	
@@ -38,8 +37,7 @@ public class commonDao {
 	private ResultSet rs;
 	private PreparedStatement ps;
 	
-	
-	public commonDto findByNo(int no){ //회원번호 기준으로 회원들 정보 조회
+	public commonDto findByNo(int no){
 		String sql = "SELECT * FROM common WHERE no = ?";
 		commonDto dto = null;
 		try {
@@ -54,11 +52,12 @@ public class commonDao {
 				dto.setName(rs.getString(2));
 				dto.setId(rs.getString(3));
 				dto.setPassword(rs.getString(4));
-				dto.setPhonenumber(rs.getString(5));
+				dto.setPhone(rs.getString(5));
 				dto.setZip(rs.getString(6));
 				dto.setAdress(rs.getString(7));
 				dto.setAdress_detail(rs.getString(8));
 				dto.setType(rs.getInt(9));
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -67,9 +66,8 @@ public class commonDao {
 		}
 		return dto;
 	}
-	
-	int insert(commonDto dto){ //삽입 
-		String sql = "INSERT INTO common(name, id, password, Phonenumber, zip, adress,adress_detail,type) "
+	int insert(commonDto dto){
+		String sql = "INSERT INTO common(name,id, password,phone, zip,adress, adress_detail, type) "
 				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 		int no = -1;
 		try {
@@ -78,7 +76,7 @@ public class commonDao {
 			ps.setString(1, dto.getName());
 			ps.setString(2, dto.getId());
 			ps.setString(3, dto.getPassword());
-			ps.setString(4, dto.getPhonenumber());
+			ps.setString(4, dto.getPhone());
 			ps.setString(5, dto.getZip());
 			ps.setString(6, dto.getAdress());
 			ps.setString(7, dto.getAdress_detail());
@@ -114,7 +112,7 @@ public class commonDao {
 		return deletedRow;
 	}
 	
-	List<commonDto> findAll(){ //모든 정보 찾기
+	List<commonDto> findAll(){
 		String sql = "SELECT * FROM common";
 		List<commonDto> list = new ArrayList<>();
 		commonDto dto = null;
@@ -130,7 +128,7 @@ public class commonDao {
 				dto.setName(rs.getString(2));
 				dto.setId(rs.getString(3));
 				dto.setPassword(rs.getString(4));
-				dto.setPhonenumber(rs.getString(5));
+				dto.setPhone(rs.getString(5));
 				dto.setZip(rs.getString(6));
 				dto.setAdress(rs.getString(7));
 				dto.setAdress_detail(rs.getString(8));
@@ -146,15 +144,15 @@ public class commonDao {
 	}
 	
 	public int update(commonDto dto){ 
-		// dto의 no번 현재 dto에 담겨있는 모든 정보로 레코드를 수정
-		String sql = "UPDATE common SET name=?, Id=?, password=?, Phonenumber=?, Zip=?, Adress=? ,Adress_detail=?, Type=? WHERE no = ?";
+
+		String sql = "UPDATE common SET name=?, id=?, password=?, phone=?, zip=?, adress=?, adress_detail=?, type=?  WHERE no = ?";
 		int updatedRow = -1;
 		try {
 			conn = getConnection();
 			ps.setString(1, dto.getName());
 			ps.setString(2, dto.getId());
 			ps.setString(3, dto.getPassword());
-			ps.setString(4, dto.getPhonenumber());
+			ps.setString(4, dto.getPhone());
 			ps.setString(5, dto.getZip());
 			ps.setString(6, dto.getAdress());
 			ps.setString(7, dto.getAdress_detail());
@@ -184,18 +182,19 @@ public class commonDao {
 			e.printStackTrace();
 		}
 	}
+	
 	public static void main(String[] args) {
 		commonDao dao = commonDao.getInstance();
 		commonDto dto = new commonDto();
-		dto.setName("홍길동");
-		dto.setId("88");
-		dto.setPassword("78");
-		dto.setPhonenumber("010-5319-9999");
+		dto.setName("김김김");
+		dto.setId("kimkimkim");
+		dto.setPassword("12df456");
+		dto.setPhone("010-555-555");
 		dto.setZip("우편번호");
-		dto.setAdress("어쩌구저저구 아파트");
-		dto.setAdress_detail("101동 101호");
-		dto.setType(1);
-		dao.insert(dto);
+		dto.setAdress("서울 특별시");
+		dto.setAdress_detail("무슨무슨 아파트");
+		dto.setType(0);
+		dao.insert(dto); 
 		
 	}
 	

@@ -5,7 +5,7 @@ public class commonDto {
 	String name;
 	String id;
 	String password;
-	String phonenumber;
+	String phone;
 	String zip;
 	String adress;
 	String adress_detail;
@@ -34,11 +34,11 @@ public class commonDto {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getPhonenumber() {
-		return phonenumber;
+	public String getPhone() {
+		return phone;
 	}
-	public void setPhonenumber(String phonenumber) {
-		this.phonenumber = phonenumber;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 	public String getZip() {
 		return zip;
@@ -64,12 +64,14 @@ public class commonDto {
 	public void setType(int type) {
 		this.type = type;
 	}
+	
 	@Override
 	public String toString() {
-		return "commonDto [no=" + no + ", name=" + name + ", id=" + id + ", password=" + password + ", phonenumber="
-				+ phonenumber + ", zip=" + zip + ", adress=" + adress + ", adress_detail=" + adress_detail + ", type="
-				+ type + "]";
+		return "commonDto [no=" + no + ", name=" + name + ", id=" + id + ", password=" + password + ", phone=" + phone
+				+ ", zip=" + zip + ", adress=" + adress + ", adress_detail=" + adress_detail + ", type=" + type + "]";
 	}
 	
-
+	
 }
+
+	

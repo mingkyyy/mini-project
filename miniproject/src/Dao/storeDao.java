@@ -12,7 +12,6 @@ import java.util.List;
 import Dto.storeDto;
 
 public class storeDao {
-	
 	private static storeDao instance;
 	private storeDao() {
 		try {
@@ -27,9 +26,9 @@ public class storeDao {
 		}
 		return instance;
 	}
-	private static final String JDBC_DRIVER = "org.mariadb.jdbc.Driver";
-	private static final String DB_URL = "jdbc:mysql://localhost:3306/store?" + "useUnicode=true" + "&characterEncoding=utf8";
-		
+	
+	private static final String JDBC_DRIVER = "org.mariadb.jdbc.Driver"; 
+	private static final String DB_URL = "jdbc:mysql://localhost:3306/ming?" + "useUnicode=true" + "&characterEncoding=utf8";
 	private static final String USERNAME = "root";
 	private static final String PASSWORD = "kmk62616261";
 	
@@ -37,24 +36,21 @@ public class storeDao {
 	private ResultSet rs;
 	private PreparedStatement ps;
 	
-	public storeDto findByNo(int Storeno){ //가게 번호로 찾음
+	public storeDto findByStoreno(int storeno){
 		String sql = "SELECT * FROM store WHERE storeno = ?";
 		storeDto dto = null;
 		try {
 			conn = getConnection();
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, Storeno);
+			ps.setInt(1, storeno);
 			rs = ps.executeQuery();
 			
 			if(rs.next()) {
 				dto = new storeDto();
-				dto.setStoreno(rs.getInt(1));
-				dto.setNo(rs.getInt(2));
-				dto.setZip(rs.getString(3));
-				dto.setAdress(rs.getString(4));
-				dto.setAdress_deail(rs.getString(5));
-				dto.setStorename(rs.getString(6));
-				dto.setStorenumber(rs.getInt(7));
+				dto.setNo(rs.getInt(1));
+				dto.setStoreadress(rs.getString(2));
+				dto.setStorename(rs.getString(3));
+				dto.setStorenumber(rs.getString(4));
 				
 			}
 		} catch (SQLException e) {
@@ -65,24 +61,24 @@ public class storeDao {
 		return dto;
 	}
 	
-	int insert(storeDto dto){  //삽입
-		String sql = "INSERT INTO store(Zip, Adress, Adress_deail, Storename, Storenumber) "
-				+ "VALUES(?, ?, ?, ?, ?)";
+	int insert(storeDto dto){
+		String sql = "INSERT INTO store(storeadress, storename, storenumber) "
+				+ "VALUES(?, ?, ?)";
 		int storeno = -1;
 		try {
 			conn = getConnection();
 			ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			ps.setString(1, dto.getZip());
-			ps.setString(2, dto.getAdress());
-			ps.setString(3, dto.getAdress_deail());
-			ps.setString(4, dto.getStorename());
-			ps.setInt(5, dto.getStorenumber());
+			
+			ps.setString(1, dto.getStoreadress());
+			ps.setString(2, dto.getStorename());
+			ps.setString(3, dto.getStorenumber());
+			
 			
 			ps.execute();
 			rs = ps.getGeneratedKeys();
 			if(rs.next())
 				storeno = rs.getInt(1);
-			System.out.println("방금 생성된 새 row의 no : " + storeno);
+			System.out.println("방금 생성된 새 row의 storeno : " + storeno);
 			
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -91,6 +87,7 @@ public class storeDao {
 		}
 		return storeno;
 	}
+	
 	public int delete(int storeno){
 		String sql = "DELETE FROM store WHERE storeno = ?"; 
 		int deletedRow = 0;
@@ -106,6 +103,7 @@ public class storeDao {
 		}
 		return deletedRow;
 	}
+	
 	List<storeDto> findAll(){
 		String sql = "SELECT * FROM store";
 		List<storeDto> list = new ArrayList<>();
@@ -118,13 +116,9 @@ public class storeDao {
 			
 			while(rs.next()) {
 				dto = new storeDto();
-				dto.setStoreno(rs.getInt(1));
-				dto.setNo(rs.getInt(2));
-				dto.setZip(rs.getString(3));
-				dto.setAdress(rs.getString(4));
-				dto.setAdress_deail(rs.getString(5));
-				dto.setStorename(rs.getString(6));
-				dto.setStorenumber(rs.getInt(7));
+				dto.setStoreadress(rs.getString(2));
+				dto.setStorename(rs.getString(3));
+				dto.setStorenumber(rs.getString(4));
 				list.add(dto);
 			}
 		} catch (SQLException e) {
@@ -136,18 +130,16 @@ public class storeDao {
 	}
 	
 	public int update(storeDto dto){ 
-	
-		String sql = "UPDATE stpre SET  Zip=?, Adress=?, Adress_deail=?, getStorename=? WHERE storeno = ?";
+		
+		String sql = "UPDATE store SET  storeadress=?, storename=?, storenumber=? WHERE storeno = ?";
 		int updatedRow = -1;
 		try {
 			conn = getConnection();
 			ps = conn.prepareStatement(sql);
-			ps.setString(1, dto.getZip());
-			ps.setString(2, dto.getAdress());
-			ps.setString(3, dto.getAdress_deail());
-			ps.setString(4, dto.getStorename());
-			ps.setInt(5, dto.getStorenumber());
 			
+			ps.setString(1, dto.getStoreadress());
+			ps.setString(2, dto.getStorename());
+			ps.setString(3, dto.getStorenumber());
 			updatedRow = ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -156,7 +148,8 @@ public class storeDao {
 		}
 		return updatedRow;
 	}
-
+	
+	
 	private Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
 	}
@@ -174,16 +167,20 @@ public class storeDao {
 			e.printStackTrace();
 		}
 	}
-	
 	public static void main(String[] args) {
 		storeDao dao = storeDao.getInstance();
 		storeDto dto = new storeDto();
-		dto.setZip("뭐냐 우편 번호");
-		dto.setAdress("무슨무슨 아파트");
-		dto.setAdress_deail("무슨무슨 동");
-		dto.setStorename("무슨무슨 가게");
-		dto.setStorenumber(5555555);
+		dto.setStoreadress("신촌");
+		dto.setStorename("반찬가게");
+		dto.setStorenumber("02-55-555");
+		dao.insert(dto); 
 		
 	}
-
 }
+
+
+
+	
+
+
+

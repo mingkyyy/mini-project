@@ -4,8 +4,8 @@ public class foodDto {
 	int foodno;
 	String foodname;
 	int storeno;
-	int foonprice;
-	String foodpcture;
+	int foodprice;
+	String foodpicture;
 	public int getFoodno() {
 		return foodno;
 	}
@@ -24,23 +24,24 @@ public class foodDto {
 	public void setStoreno(int storeno) {
 		this.storeno = storeno;
 	}
-	public int getFoonprice() {
-		return foonprice;
+	public int getFoodprice() {
+		return foodprice;
 	}
-	public void setFoonprice(int foonprice) {
-		this.foonprice = foonprice;
+	public void setFoodprice(int foodprice) {
+		this.foodprice = foodprice;
 	}
-	public String getFoodpcture() {
-		return foodpcture;
+	public String getFoodpicture() {
+		return foodpicture;
 	}
-	public void setFoodpcture(String Foodpcture) {
-		this.foodpcture = Foodpcture;
+	public void setFoodpicture(String foodpicture) {
+		this.foodpicture = foodpicture;
 	}
-	
 	@Override
 	public String toString() {
-		return "foodDto [foodno=" + foodno + ", foodname=" + foodname + ", storeno=" + storeno + ", foonprice="
-				+ foonprice + ", foodpcture=" + foodpcture + "]";
+		return "foodDto [foodno=" + foodno + ", foodname=" + foodname + ", storeno=" + storeno + ", foodprice="
+				+ foodprice + ", foodpicture=" + foodpicture + "]";
 	}
+	
+	
 
 }
