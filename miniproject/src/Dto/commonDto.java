@@ -9,7 +9,7 @@ public class commonDto {
 	String zip;
 	String adress;
 	String adress_detail;
-	String type;
+	int type;
 	public int getNo() {
 		return no;
 	}
@@ -58,10 +58,10 @@ public class commonDto {
 	public void setAdress_detail(String adress_detail) {
 		this.adress_detail = adress_detail;
 	}
-	public String getType() {
+	public int getType() {
 		return type;
 	}
-	public void setType(String type) {
+	public void setType(int type) {
 		this.type = type;
 	}
 	@Override
