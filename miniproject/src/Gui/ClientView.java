@@ -7,6 +7,9 @@ import java.awt.GridLayout;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,16 +20,13 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 
-public class ClientView extends JFrame implements ActionListener{
-	private JPanel bigpanel,leftPanel,storePanel,buttonPanel;
+public class ClientView extends JFrame implements ActionListener,MouseListener{
+	private JPanel bigpanel,leftPanel,storePanel,buttonPanel,rightPanel;
 	private TextArea textarea;
-	private JButton  backButton;
+	private JButton  backButton, orderButton;
 	private JLabel storename;
 	private JTable table;
 	private JScrollPane scrollPane;
-	public String foodname, foodpicture,foodprice;
-	
-	
 
 
 	public ClientView(){	
@@ -37,8 +37,6 @@ public class ClientView extends JFrame implements ActionListener{
 		
 		storename=new JLabel("가게 이름");
 		
-		textarea=new TextArea();		
-		textarea.setPreferredSize(new Dimension(300,800));
 		
 		
 		  String[] header= {"음식이름","음식금액","음식 사진"};
@@ -49,17 +47,26 @@ public class ClientView extends JFrame implements ActionListener{
 					
 			};
 					
-			DefaultTableModel model=new DefaultTableModel(contents,header);
-			table=new JTable(model);
+			DefaultTableModel model=new DefaultTableModel(contents,header);		
+			table=new JTable(model);	
+			table.addMouseListener(this);
 			scrollPane = new JScrollPane(table);
 			table.setRowHeight(80);
-		
-		
+			
+			
         
 		
 		backButton=new JButton("back");
 		backButton.setPreferredSize(new Dimension(60,5));
 		backButton.addActionListener(this);
+		
+
+		textarea=new TextArea();		
+		textarea.setPreferredSize(new Dimension(300,720));
+		
+		orderButton=new JButton("주문");
+		orderButton.setPreferredSize(new Dimension(300,80));
+		
 		
 	
 		storePanel=new JPanel();
@@ -77,11 +84,15 @@ public class ClientView extends JFrame implements ActionListener{
 		leftPanel.add(scrollPane, BorderLayout.CENTER);
 		
 	   
+		rightPanel=new JPanel();
+		rightPanel.setLayout(new BorderLayout());
+		rightPanel.add(textarea,BorderLayout.CENTER);
+		rightPanel.add(orderButton, BorderLayout.SOUTH);
 		
 		bigpanel=new JPanel();
 		bigpanel.setLayout(new BorderLayout());	
 		bigpanel.add(leftPanel, BorderLayout.CENTER);
-		bigpanel.add(textarea, BorderLayout.EAST);
+		bigpanel.add(rightPanel, BorderLayout.EAST);
 		
 		this.add(bigpanel);
 		setVisible(true);
@@ -104,4 +115,31 @@ public class ClientView extends JFrame implements ActionListener{
 		}
 		
 	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		JOptionPane.showMessageDialog(this, "추가하겠습니까?");
+		int row = table.getSelectedRow();
+		String foodname=(String)table.getValueAt(row, 0);
+		String foodprice=(String)table.getValueAt(row, 1);
+		textarea.setText(textarea.getText()+foodname+" : "+foodprice+"원"+"\n");
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+	
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {	
+	}
+	
 }

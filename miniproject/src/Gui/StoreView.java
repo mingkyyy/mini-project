@@ -6,6 +6,8 @@ import java.awt.GridLayout;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -14,6 +16,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+
 
 
 public class StoreView extends JFrame implements ActionListener{
@@ -45,13 +49,16 @@ public class StoreView extends JFrame implements ActionListener{
 		
 		  String[] header= {"음식이름","음식금액","음식 사진"};
 			String[][] contents={
-					{"","",""}
-			};
+					
+		};
 					
 			DefaultTableModel model=new DefaultTableModel(contents,header);
 			table=new JTable(model);
 			scrollPane = new JScrollPane(table);
 			table.setRowHeight(80);
+			
+			
+
 		
 		addbutton=new JButton("추가");
 		addbutton.setPreferredSize(new Dimension(150,100));
@@ -83,9 +90,7 @@ public class StoreView extends JFrame implements ActionListener{
 		storePanel=new JPanel();
 		storePanel.setLayout(new BorderLayout());
 		storePanel.add(backButton,BorderLayout.WEST);
-		storePanel.add(storename,BorderLayout.CENTER);
-		
-		
+		storePanel.add(storename,BorderLayout.CENTER);	
 		storePanel.setPreferredSize(new Dimension(500,30));
 	
 
@@ -120,12 +125,18 @@ public class StoreView extends JFrame implements ActionListener{
 		
 	}
 
+	
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(addbutton)) {
 			String foodname=JOptionPane.showInputDialog("추가할 음식 이름을 입력하세요");
 			String foodprice=JOptionPane.showInputDialog("추가할 음식 가격을 입력하세요");
 			String foodpicture=JOptionPane.showInputDialog("추가할 사진 경로를 입력하세요");
+			if(foodname.length()==0 || foodprice.length()==0) {
+				JOptionPane.showMessageDialog(this, "추가할 음식 이름 또는 음식 가격을 입력해주세요");
+				return;
+			}
 			
 		    DefaultTableModel m=(DefaultTableModel)table.getModel();
 		    m.insertRow(0, new Object[] {foodname,foodprice,foodpicture});
@@ -182,6 +193,11 @@ public class StoreView extends JFrame implements ActionListener{
 		}
 			
 		}
+
+
+
+	
+	
 		
 	}
 
