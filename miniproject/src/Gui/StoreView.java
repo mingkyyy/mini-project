@@ -53,7 +53,13 @@ public class StoreView extends JFrame implements ActionListener{
 		};
 					
 			DefaultTableModel model=new DefaultTableModel(contents,header);
-			table=new JTable(model);
+			table=new JTable(model) {  //테이블 수정 불가
+				@Override
+				public boolean isCellEditable(int row, int column) {
+					return false;
+					
+				}
+			};
 			scrollPane = new JScrollPane(table);
 			table.setRowHeight(80);
 			

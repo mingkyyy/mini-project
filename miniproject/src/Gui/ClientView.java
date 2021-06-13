@@ -48,10 +48,19 @@ public class ClientView extends JFrame implements ActionListener,MouseListener{
 			};
 					
 			DefaultTableModel model=new DefaultTableModel(contents,header);		
-			table=new JTable(model);	
+			table=new JTable(model) {
+				@Override
+				public boolean isCellEditable(int row, int column) {
+					return false;
+					
+				}
+			};
+				
+			
 			table.addMouseListener(this);
 			scrollPane = new JScrollPane(table);
 			table.setRowHeight(80);
+			
 			
 			
         
@@ -66,6 +75,7 @@ public class ClientView extends JFrame implements ActionListener,MouseListener{
 		
 		orderButton=new JButton("주문");
 		orderButton.setPreferredSize(new Dimension(300,80));
+		orderButton.addActionListener(this);
 		
 		
 	
@@ -112,13 +122,15 @@ public class ClientView extends JFrame implements ActionListener,MouseListener{
 		if(e.getSource().equals(backButton)) {
 			new MainView();
 			setVisible(false);
+		}else if(e.getSource().equals(orderButton)) {
+			JOptionPane.showMessageDialog(this, "주문 하시겠습니까?");
 		}
 		
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		JOptionPane.showMessageDialog(this, "추가하겠습니까?");
+		
 		int row = table.getSelectedRow();
 		String foodname=(String)table.getValueAt(row, 0);
 		String foodprice=(String)table.getValueAt(row, 1);
@@ -126,8 +138,7 @@ public class ClientView extends JFrame implements ActionListener,MouseListener{
 	}
 
 	@Override
-	public void mousePressed(MouseEvent e) {
-	
+	public void mousePressed(MouseEvent e) {	
 	}
 
 	@Override
