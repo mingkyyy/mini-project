@@ -16,7 +16,6 @@ import javax.swing.JTextField;
 public class SignUpView extends JFrame{
 	JLabel signUp, name, id, pw, phonenumber, zip, adress, adress_detail;
 	JTextField nameField, idField, pwField,phonenumberField, zipField,adressField,adress_detailField;
-	JRadioButton radio1, radio2;
 	JButton button, backbutton;
 	
 	SignUpView() {
@@ -53,7 +52,7 @@ public class SignUpView extends JFrame{
 				});
 		
 		
-		signUp = new JLabel("회원가입");
+		signUp = new JLabel("일반 회원가입");
 		signUp.setFont(new Font("Magneto 굵게",Font.BOLD , 30));
 		name = new JLabel(" 이름  ");
 		name.setFont(new Font("Magneto 굵게",Font.BOLD , 13));
@@ -69,10 +68,7 @@ public class SignUpView extends JFrame{
 		adress.setFont(new Font("Magneto 굵게",Font.BOLD , 13));
 		adress_detail = new JLabel(" 상세주소 ");
 		adress_detail.setFont(new Font("Magneto 굵게",Font.BOLD , 13));
-		radio1=new JRadioButton("일반 회원");
-		radio1.setFont(new Font("Magneto 굵게",Font.BOLD , 13));
-		radio2=new JRadioButton("가게");
-		radio2.setFont(new Font("Magneto 굵게",Font.BOLD , 13));
+		
 		
 		nameField = new JTextField();
 		idField = new JTextField();
@@ -94,9 +90,6 @@ public class SignUpView extends JFrame{
 		zip.setBounds(150,400,70,40);
 		adress.setBounds(150,450,70,40);
 		adress_detail.setBounds(150,500,70,40);
-		radio1.setBounds(150,550,100,40);
-		radio2.setBounds(250,550,100,40);
-		
 		
 		
 		nameField.setBounds(220, 200, 300, 40);
@@ -117,8 +110,6 @@ public class SignUpView extends JFrame{
 		panel.add(zip);
 		panel.add(adress);
 		panel.add(adress_detail);
-		panel.add(radio1);
-		panel.add(radio2);
 		panel.add(backbutton);
 		
 		

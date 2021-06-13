@@ -6,6 +6,18 @@ public class foodDto {
 	int storeno;
 	int foodprice;
 	String foodpicture;
+	
+	
+	
+	
+	//public foodDto(String foodname, int foodprice, String foodpicture) {
+	//	this.foodname=foodname;
+	//	this.foodprice=foodprice;
+	//	this.foodpicture=foodpicture;
+//	}
+	
+	
+
 	public int getFoodno() {
 		return foodno;
 	}

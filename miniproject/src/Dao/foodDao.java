@@ -13,13 +13,14 @@ import Dto.foodDto;
 
 public class foodDao {
 	private static foodDao instance;
-	private foodDao() {
+	public foodDao() {
 		try {
 			Class.forName(JDBC_DRIVER);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
+	
 	public static foodDao getInstance() {
 		if(instance == null) {
 			instance = new foodDao();
@@ -178,5 +179,6 @@ public class foodDao {
 		dao.insert(dto); 
 		
 	}
+
 
 }

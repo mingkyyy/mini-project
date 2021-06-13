@@ -6,7 +6,12 @@ import java.awt.GridLayout;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
+import java.awt.image.DataBufferByte;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,7 +20,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+
+import Dao.foodDao;
+import Dto.foodDto;
 
 
 
@@ -28,13 +39,18 @@ public class StoreView extends JFrame implements ActionListener{
 	private JLabel storename;
 	private JTable table;
 	private JScrollPane scrollPane;
-	public String foodname, foodpicture,foodprice;
+	
+	
 	
 	
 
 
 	public StoreView(){	
+		
+		
+		
 		super("미니 프로젝트");
+		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(800, 800);
 		setLocationRelativeTo(null);
@@ -63,8 +79,15 @@ public class StoreView extends JFrame implements ActionListener{
 			scrollPane = new JScrollPane(table);
 			table.setRowHeight(80);
 			
+			DefaultTableCellRenderer dtc=new DefaultTableCellRenderer(); //table 안의 값 강누데 정렬
+			dtc.setHorizontalAlignment(SwingConstants.CENTER);
+			TableColumnModel tcm=table.getColumnModel();
+			for(int i=0; i<table.getColumnCount(); i++) {
+				tcm.getColumn(i).setCellRenderer(dtc);
+				
+			}
 			
-
+			
 		
 		addbutton=new JButton("추가");
 		addbutton.setPreferredSize(new Dimension(150,100));
@@ -134,19 +157,34 @@ public class StoreView extends JFrame implements ActionListener{
 	
 	
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) {//음식 추가
+		String foodname=null;
+		int foodprice=0;
+		String foodpicture=null;
 		if(e.getSource().equals(addbutton)) {
-			String foodname=JOptionPane.showInputDialog("추가할 음식 이름을 입력하세요");
-			String foodprice=JOptionPane.showInputDialog("추가할 음식 가격을 입력하세요");
-			String foodpicture=JOptionPane.showInputDialog("추가할 사진 경로를 입력하세요");
-			if(foodname.length()==0 || foodprice.length()==0) {
+			 foodname=JOptionPane.showInputDialog("추가할 음식 이름을 입력하세요");
+			 foodprice =Integer.parseInt(JOptionPane.showInputDialog("추가할 음식 가격을 입력하세요"));
+			foodpicture=JOptionPane.showInputDialog("추가할 사진 경로를 입력하세요");
+			
+			if(foodname.length()==0 || foodprice==0) {
 				JOptionPane.showMessageDialog(this, "추가할 음식 이름 또는 음식 가격을 입력해주세요");
-				return;
-			}
+				return;}
+			
 			
 		    DefaultTableModel m=(DefaultTableModel)table.getModel();
 		    m.insertRow(0, new Object[] {foodname,foodprice,foodpicture});
-			table.updateUI();
+			//table.updateUI();
+			
+		    foodDto fooddto = new foodDto();
+			foodDao fooddao = new foodDao();
+			fooddto.setFoodname(foodname);
+			fooddto.setFoodprice(foodprice);
+			fooddto.setFoodpicture(foodpicture);
+			fooddao.insert(fooddto);
+			
+			
+			
+			
 			
 		}
 		else if(e.getSource().equals(deletebutton)) {
@@ -156,7 +194,12 @@ public class StoreView extends JFrame implements ActionListener{
 				if(deletefood.equals(table.getValueAt(i, 0))) {
 					DefaultTableModel m=(DefaultTableModel)table.getModel();
 					m.removeRow(i);
+					
+					foodDao dao=new foodDao();
+					dao.delete(i);
+					
 					return;
+					
 				}else {
 					JOptionPane.showMessageDialog(null, "삭제할 음식이 존재 하지 않습니다");
 					return;
@@ -168,28 +211,51 @@ public class StoreView extends JFrame implements ActionListener{
 			String update=JOptionPane.showInputDialog("1:이름수정, 2: 가격 수정, 3:사진 수정");
 			
 			for(int i=0; i<table.getRowCount(); i++) {
+				
+				
 				if(updatefood.equals(table.getValueAt(i, 0))) {		
 					if(update.equals("1")) {
 						DefaultTableModel m=(DefaultTableModel)table.getModel();
-						String newname = JOptionPane.showInputDialog("수정 할 이름을 입력하세요");						
+						 String newname = JOptionPane.showInputDialog("수정 할 이름을 입력하세요");	
 						m.setValueAt(newname, i, 0);
+						
+						 foodDto fooddto = new foodDto();
+							foodDao fooddao = new foodDao();
+							fooddto.setFoodname(newname);
+							fooddto.setFoodprice(foodprice);
+							fooddto.setFoodpicture(foodpicture);
+							fooddao.update(fooddto);
+							
+						
+						
+						
+						
 						return;
 						
 					}else if(update.equals("2")) {
-						String newprice = JOptionPane.showInputDialog("수정 할 가격 입력하세요");						
+					int  newprice = Integer.parseInt(JOptionPane.showInputDialog("수정 할 가격 입력하세요"));						
 						DefaultTableModel m=(DefaultTableModel)table.getModel();
 						m.setValueAt(newprice, i, 1);
+						
+					
+						
 						return;
 					}else if(update.equals("3")) {
 						String newpicture = JOptionPane.showInputDialog("수정 할 사진 입력하세요");
 						DefaultTableModel m=(DefaultTableModel)table.getModel();
 						m.setValueAt(newpicture, i, 2);
+						
+						
 						return;
+						
 					}
+					
+					
 				}else {
 					JOptionPane.showMessageDialog(null, "수정할 음식이 존재 하지 않습니다");
 					return;
 				}
+				
 			
 			}
 		}else if(e.getSource().equals(backButton)) {
@@ -200,6 +266,12 @@ public class StoreView extends JFrame implements ActionListener{
 			
 		}
 
+
+
+	
+
+
+	
 
 
 	
