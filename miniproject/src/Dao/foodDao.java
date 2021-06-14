@@ -65,7 +65,9 @@ public class foodDao {
 	public int insert(foodDto dto){
 		String sql = "INSERT INTO food(foodname, foodprice, foodpicture) "
 				+ "VALUES(?, ?, ?)";
+		
 		int foodno = -1;
+		
 		try {
 			conn = getConnection();
 			ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -101,7 +103,7 @@ public class foodDao {
 		} finally {
 			close(conn, ps); 
 		}
-		return deletedRow;
+		return delete(deletedRow);
 	}
 	
 	List<foodDto> findAll(){

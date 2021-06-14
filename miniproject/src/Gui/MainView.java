@@ -1,20 +1,21 @@
 package Gui;
-
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class MainView extends JFrame  {
-private JButton loginButton, singUpButton;
+public class MainView extends JFrame implements ActionListener{
+private JButton loginButton, signUpButton;
 private JButton findButton, myShopButton;
-
+private CardLayout card;
 
 	public MainView() {
 		super("반찬 on subway");
@@ -30,9 +31,6 @@ private JButton findButton, myShopButton;
 	}
 	
 	
-	public static void main(String[] args) {
-		new MainView();
-	}
 	
 	private JPanel getCenterPanel() {
 		JPanel panel = new JPanel();
@@ -44,26 +42,9 @@ private JButton findButton, myShopButton;
 		mainName.setBounds(150, 200, 400, 100 );
 		
 		findButton = new JButton("가게 찾기");
-		findButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new SearchView();
-				setVisible(false);
-				
-			}
-		});
+		findButton.addActionListener(this);
 		myShopButton = new JButton("찜한 가게");
-		myShopButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new FavoriteView();
-				setVisible(false);
-				
-			}
-		});
-		
+		myShopButton.addActionListener(this);
 		
 		findButton.setBounds(150, 400, 150, 100);
 		myShopButton.setBounds(350, 400, 150, 100);
@@ -76,40 +57,87 @@ private JButton findButton, myShopButton;
 		
 		return panel;
 		
+		
 	}
 	
 	private JPanel getNorthPanel() {
 		loginButton = new JButton("Login");
-		loginButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new LoginView();
-				setVisible(false);
-				
-			}
-		});
-		singUpButton = new JButton("Sing Up");
-		singUpButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new SignUpView();
-				setVisible(false);
-				
-			}
-		});
+		loginButton.addActionListener(this);
+		signUpButton = new JButton("Sign Up");
+		signUpButton.addActionListener(this);
+		
 		
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(new FlowLayout(FlowLayout.RIGHT,0,0));
 		panel.add(loginButton);
-		panel.add(singUpButton);
+		panel.add(signUpButton);
 		
 		return panel;
 	}
 
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		JButton jButton = (JButton) e.getSource();
+		switch (jButton.getText()) {
+		case "Login" : {
+			onLoginButtonClick();
+			break;
+		}
+		case "Sign Up": {
+			onSignUpButtonClick();
+			break;
+		}
+		case "가게 찾기": {
+			onSearchButtonClick();
+			break;
+		}
+		case "찜한 가게": {
+			onFavoriteButtonClick();
+			break;
+		}
+		default:
+		
+	}
+		
+	}
+	
+	private void onLoginButtonClick() {
+		LoginView loginView = new LoginView();
+		loginView.setVisible(true);
+		loginView.setLocationRelativeTo(null);
+		
+		this.dispose();
 
-
+	}
+	
+	
+	private void onSignUpButtonClick() {
+		SignUpView signUpView = new SignUpView();
+		signUpView.setVisible(true);
+		signUpView.setLocationRelativeTo(null);
+		
+		this.dispose();
+	}
+	private void onFavoriteButtonClick() {
+		FavoriteView favoriteView = new FavoriteView();
+		favoriteView.setVisible(true);
+		favoriteView.setLocationRelativeTo(null);
+		
+		this.dispose();
+	}
+	private void onSearchButtonClick() {
+		SearchView searchView = new SearchView();
+		searchView.setVisible(true);
+		searchView.setLocationRelativeTo(null);
+		
+		this.dispose();
+	}
+	
+	
+	
+	public static void main(String[] args) {
+		new MainView();
+	}
 	
 }

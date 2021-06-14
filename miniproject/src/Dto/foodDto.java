@@ -10,12 +10,7 @@ public class foodDto {
 	
 	
 	
-	//public foodDto(String foodname, int foodprice, String foodpicture) {
-	//	this.foodname=foodname;
-	//	this.foodprice=foodprice;
-	//	this.foodpicture=foodpicture;
-//	}
-	
+
 	
 
 	public int getFoodno() {
@@ -53,6 +48,7 @@ public class foodDto {
 		return "foodDto [foodno=" + foodno + ", foodname=" + foodname + ", storeno=" + storeno + ", foodprice="
 				+ foodprice + ", foodpicture=" + foodpicture + "]";
 	}
+	
 	
 	
 

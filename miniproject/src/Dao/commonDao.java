@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Dto.commonDto;
+import util.DatabaseUtil;
 
 public class commonDao {
 	
@@ -66,7 +67,7 @@ public class commonDao {
 		}
 		return dto;
 	}
-	int insert(commonDto dto){
+	public int insert(commonDto dto){
 		String sql = "INSERT INTO common(name,id, password,phone, zip,adress, adress_detail, type) "
 				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 		int no = -1;
@@ -182,21 +183,30 @@ public class commonDao {
 			e.printStackTrace();
 		}
 	}
-	
-	public static void main(String[] args) {
-		commonDao dao = commonDao.getInstance();
-		commonDto dto = new commonDto();
-		dto.setName("김김김");
-		dto.setId("kimkimkim");
-		dto.setPassword("12df456");
-		dto.setPhone("010-555-555");
-		dto.setZip("우편번호");
-		dto.setAdress("서울 특별시");
-		dto.setAdress_detail("무슨무슨 아파트");
-		dto.setType(0);
-		dao.insert(dto); 
-		
+	public int loginCheck(String userID, String userPassword) {
+		try {
+			conn = DatabaseUtil.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM tomcat WHERE userid = ?");
+			ps.setString(2, userID);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				if (rs.getString(3).contentEquals(userPassword)) {
+					return 1; // 로그인 성공
+				}
+				else {
+					return 0; // 비밀번호 불일치
+				}
+			} else {
+				return -1;// 아이디 불일치
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -2; //db오류
+
 	}
-	
+
 
 }
+	
+	

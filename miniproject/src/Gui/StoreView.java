@@ -178,6 +178,7 @@ public class StoreView extends JFrame implements ActionListener{
 			fooddto.setFoodpicture(foodpicture);
 			foodDao.getInstance().insert(fooddto);
 			
+			
 			if(foodname.length()==0 || foodprice==0) {
 				JOptionPane.showMessageDialog(this, "추가할 음식 이름 또는 음식 가격을 입력해주세요");
 				return;
@@ -189,36 +190,38 @@ public class StoreView extends JFrame implements ActionListener{
 			String deletefood=JOptionPane.showInputDialog("삭제 할 음식이름을 입력하세요");
 			
 			for(int i=0; i<table.getRowCount(); i++) {
+				
 				if(deletefood.equals(table.getValueAt(i, 0))) {
+					
 					DefaultTableModel m=(DefaultTableModel)table.getModel();
 					m.removeRow(i);
-					//음식 번호를 가지고 와서 음식번호 기준 삭제해야 한다.
 					
-
-					return;
-					
+					return;				
 				}else {
 					JOptionPane.showMessageDialog(null, "삭제할 음식이 존재 하지 않습니다");
 					return;
 				}
+						
 			}
+			
 			
 		}else if(e.getSource().equals(updatebutton)) {  //수정
 			
 			String updatefood=JOptionPane.showInputDialog("수정할 음식 이름을 선택하세요");
 			String update=JOptionPane.showInputDialog("1:이름수정, 2: 가격 수정, 3:사진 수정");
 			
-			for(int i=0; i<table.getRowCount(); i++) {
-				
-				
+			for(int i=0; i<table.getRowCount(); i++) {	
 				if(updatefood.equals(table.getValueAt(i, 0))) {		
 					if(update.equals("1")) {
 						DefaultTableModel m=(DefaultTableModel)table.getModel();
 						 String newname = JOptionPane.showInputDialog("수정 할 이름을 입력하세요");	
 						m.setValueAt(newname, i, 0);
+					   fooddto.getFoodno();
+						fooddto.setFoodname(newname);
+						fooddto.setFoodprice(foodprice);
+						fooddto.setFoodpicture(foodpicture);
+						foodDao.getInstance().update(fooddto);
 						
-						
-
 						
 
 						
@@ -229,16 +232,13 @@ public class StoreView extends JFrame implements ActionListener{
 						DefaultTableModel m=(DefaultTableModel)table.getModel();
 						m.setValueAt(newprice, i, 1);
 						
-						
-
-					    
+				
 						
 						return;
 					}else if(update.equals("3")) {
 						String newpicture = JOptionPane.showInputDialog("수정 할 사진 입력하세요");
 						DefaultTableModel m=(DefaultTableModel)table.getModel();
 						m.setValueAt(newpicture, i, 2);
-						
 						
 			
 						return;

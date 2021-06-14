@@ -59,7 +59,7 @@ public class ordersDao {
 		}
 		return dto;
 }
-	int insert(ordersDto dto){
+	public int insert(ordersDto dto){
 
 		String sql = "INSERT INTO orders (orderdata) VALUES (?)";
 				

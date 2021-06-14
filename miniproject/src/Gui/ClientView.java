@@ -8,9 +8,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -38,10 +42,12 @@ public class ClientView extends JFrame implements ActionListener,MouseListener{
 	SimpleDateFormat format;
 	Calendar time;
 	ordersDto ordersdto;
+	ImageIcon imageicon;
 	
 
 
 	public ClientView(){	
+		
 		
 		super("미니 프로젝트");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -49,10 +55,7 @@ public class ClientView extends JFrame implements ActionListener,MouseListener{
 		setLocationRelativeTo(null);
 		
 		storename=new JLabel("가게 이름");
-		
 	
-		
-		
 		
 		  Object[] header= {"음식이름","음식금액","음식사진"};
 		  Object[][] contents={
@@ -62,16 +65,20 @@ public class ClientView extends JFrame implements ActionListener,MouseListener{
 					
 			};
 					
-			DefaultTableModel model=new DefaultTableModel(contents,header);		
-			table=new JTable(model) {
+			DefaultTableModel model=new DefaultTableModel(contents,header);
+			
+			
+			table=new JTable(model) { //table 안에 값 수정 못함
 				@Override
 				public boolean isCellEditable(int row, int column) {
 					return false;
 					
 				}
+				
 			};
 			
-			DefaultTableCellRenderer dtc=new DefaultTableCellRenderer(); //table 안의 값 강누데 정렬
+			
+			DefaultTableCellRenderer dtc=new DefaultTableCellRenderer(); //table 안의 값 가운데 정렬
 			dtc.setHorizontalAlignment(SwingConstants.CENTER);
 			TableColumnModel tcm=table.getColumnModel();
 			for(int i=0; i<table.getColumnCount(); i++) {
@@ -176,6 +183,7 @@ public class ClientView extends JFrame implements ActionListener,MouseListener{
 		textarea.setText(textarea.getText()+foodname+" : "+foodprice+"원"+"\n");
 		sum+=Integer.parseInt((String) table.getValueAt(row, 1));
 		textarea2.setText("총 금액"+sum+"원");
+		
 		
 	}
 
