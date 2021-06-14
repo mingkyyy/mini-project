@@ -3,15 +3,14 @@ package Gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,12 +19,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
-import javax.swing.event.TableColumnModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import Dao.ordersDao;
+import Dto.ordersDto;
 
-import Dao.foodDao;
 
 
 public class ClientView extends JFrame implements ActionListener,MouseListener{
@@ -36,6 +35,9 @@ public class ClientView extends JFrame implements ActionListener,MouseListener{
 	private JTable table;
 	private JScrollPane scrollPane;
 	int sum;
+	SimpleDateFormat format;
+	Calendar time;
+	ordersDto ordersdto;
 	
 
 
@@ -151,6 +153,16 @@ public class ClientView extends JFrame implements ActionListener,MouseListener{
 			setVisible(false);
 		}else if(e.getSource().equals(orderButton)) {
 			JOptionPane.showMessageDialog(this, "주문 하시겠습니까?");
+			//주문 확인버튼 누르면 주문 정보 테이블에 저장해야함.
+			format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			time=Calendar.getInstance();
+			String format_time=format.format(time.getTime());
+			  ordersdto = new ordersDto();		
+			  ordersdto.setOrderdata(format_time); 	
+				ordersDao.getInstance().insert(ordersdto);
+				
+				textarea.setText(""); 
+				textarea2.setText("");
 		}
 		
 	}
@@ -164,6 +176,7 @@ public class ClientView extends JFrame implements ActionListener,MouseListener{
 		textarea.setText(textarea.getText()+foodname+" : "+foodprice+"원"+"\n");
 		sum+=Integer.parseInt((String) table.getValueAt(row, 1));
 		textarea2.setText("총 금액"+sum+"원");
+		
 	}
 
 	@Override
