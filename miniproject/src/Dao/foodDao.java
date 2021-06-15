@@ -37,6 +37,31 @@ public class foodDao {
 	private ResultSet rs;
 	private PreparedStatement ps;
 	
+	public foodDto findByfoodname(String foodname){
+		String sql = "SELECT * FROM food WHERE foodname = ?";
+		foodDto dto = null;
+		try {
+			conn = getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, foodname);
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				dto = new foodDto();
+				dto.setFoodno(rs.getInt(1));
+				dto.setFoodname(rs.getString(2));
+				dto.setStoreno(rs.getInt(3));
+				dto.setFoodprice(rs.getInt(4));
+				dto.setFoodpicture(rs.getString(5));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, ps, rs);
+		}
+		return dto;
+	}
 	public foodDto findByfoodNo(int foodno){
 		String sql = "SELECT * FROM food WHERE foodno = ?";
 		foodDto dto = null;
@@ -103,7 +128,7 @@ public class foodDao {
 		} finally {
 			close(conn, ps); 
 		}
-		return delete(deletedRow);
+		return deletedRow;
 	}
 	
 	List<foodDto> findAll(){
