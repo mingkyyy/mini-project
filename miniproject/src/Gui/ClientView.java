@@ -3,6 +3,7 @@ package Gui;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -43,6 +44,15 @@ public class ClientView extends JFrame implements ActionListener, MouseListener 
 	Calendar time;
 	ordersDto ordersdto;
 	ImageIcon imageicon;
+	
+	ImageIcon imageSetSize(ImageIcon icon, int i, int j ) { //이미지 크기 조절 클래스
+		Image ximg=icon.getImage();
+		Image yimg=ximg.getScaledInstance(i, j, Image.SCALE_SMOOTH);
+		ImageIcon xyimg=new ImageIcon(yimg);
+		return xyimg;
+	}
+	
+	
 
 	public ClientView() {
 
@@ -56,16 +66,19 @@ public class ClientView extends JFrame implements ActionListener, MouseListener 
 		
 		storename = new JLabel("가게 이름");
 		imageicon = new ImageIcon("dog.jpg");
-		
+		imageicon=imageSetSize(imageicon, 200, 100); //이미지 크기 조절
 		
 
 		String[] header = { "음식이름", "음식금액", "음식사진" };
 		Object[][] contents = { 
 				{ "a", "500", imageicon }, 
-				{ "b", "700", }, 
-				{ "c", "800", }
+				{ "b", "700", imageicon}, 
+				{ "c", "800", imageicon }
 
 		};
+		
+		
+		
 		
 		
 		DefaultTableModel model = new DefaultTableModel(contents, header) {
@@ -98,6 +111,7 @@ public class ClientView extends JFrame implements ActionListener, MouseListener 
 		DefaultTableCellRenderer dtc = new DefaultTableCellRenderer(); // table 안의 값 가운데 정렬
 		dtc.setHorizontalAlignment(SwingConstants.CENTER);
 		TableColumnModel tcm = table.getColumnModel();
+		
 		for (int i = 0; i < 2; i++) {
 			tcm.getColumn(i).setCellRenderer(dtc);
 	}

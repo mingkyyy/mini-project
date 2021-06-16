@@ -3,16 +3,12 @@ package Gui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.DataBufferByte;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -36,9 +32,18 @@ public class StoreView extends JFrame implements ActionListener {
 	private JLabel storename;
 	private JTable table;
 	private JScrollPane scrollPane;
-
+	ImageIcon imageicon;
 	foodDto fooddto;
 	// foodDao fooddao;
+	
+	ImageIcon imageSetSize(ImageIcon icon, int i, int j ) { //이미지 크기 조절 클래스
+		Image ximg=icon.getImage();
+		Image yimg=ximg.getScaledInstance(i, j, Image.SCALE_SMOOTH);
+		ImageIcon xyimg=new ImageIcon(yimg);
+		return xyimg;
+	}
+	
+	
 
 	public StoreView() {
 
@@ -47,7 +52,7 @@ public class StoreView extends JFrame implements ActionListener {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(800, 800);
 		setLocationRelativeTo(null);
-
+		
 		storename = new JLabel("가게 이름");
 
 		textarea = new TextArea();
@@ -60,13 +65,31 @@ public class StoreView extends JFrame implements ActionListener {
 		String[][] contents = {
 
 		};
+		
+		//imageicon = new ImageIcon(foodpicture);
+		//imageicon=imageSetSize(imageicon, 200, 100); //이미지 크기 조절
 
-		DefaultTableModel model = new DefaultTableModel(contents, header);
+
+		DefaultTableModel model = new DefaultTableModel(contents, header) {
+
+			@Override // 입력된 형태로 반환 : 사진 안 뜸
+			public Class<?> getColumnClass(int column) {
+				switch (column) {
+				case 0:
+				case 1:
+					return String.class;
+				case 2:
+					return ImageIcon.class;
+				default:
+					return String.class;
+				}
+			}
+
+		};
 		table = new JTable(model) { // 테이블 수정 불가
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
-
 			}
 		};
 		scrollPane = new JScrollPane(table);
@@ -140,20 +163,24 @@ public class StoreView extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {// 음식 추가
 		String foodname = null;
 		int foodprice = 0;
-		String foodpicture = null;
+		String foodpictrue=null;
 		if (e.getSource().equals(addbutton)) {
 			foodname = JOptionPane.showInputDialog("추가할 음식 이름을 입력하세요");
 			foodprice = Integer.parseInt(JOptionPane.showInputDialog("추가할 음식 가격을 입력하세요"));
-			foodpicture = JOptionPane.showInputDialog("추가할 사진 경로를 입력하세요");
-
+			foodpictrue = JOptionPane.showInputDialog("추가할 사진 경로를 입력하세요");
+			imageicon = new ImageIcon(foodpictrue);
+			imageicon=imageSetSize(imageicon, 200, 100); 
+			
 			DefaultTableModel m = (DefaultTableModel) table.getModel();
-			m.insertRow(0, new Object[] { foodname, foodprice, foodpicture });
+			m.insertRow(0, new Object[] { foodname, foodprice, imageicon });
 			// table.updateUI();
+			
+			
 
 			fooddto = new foodDto();
 			fooddto.setFoodname(foodname);
 			fooddto.setFoodprice(foodprice);
-			fooddto.setFoodpicture(foodpicture);
+			fooddto.setFoodpicture(foodpictrue);
 			foodDao.getInstance().insert(fooddto);
 
 			if (foodname.length() == 0 || foodprice == 0) {
@@ -194,8 +221,10 @@ public class StoreView extends JFrame implements ActionListener {
 						return;
 					} else if (update.equals("3")) {
 						String newpicture = JOptionPane.showInputDialog("수정 할 사진 입력하세요");
+						imageicon = new ImageIcon(newpicture);
+						imageicon=imageSetSize(imageicon, 200, 100); 
 						DefaultTableModel m = (DefaultTableModel) table.getModel();
-						m.setValueAt(newpicture, i, 2);
+						m.setValueAt(imageicon, i, 2);
 						return;
 					}
 				} else {

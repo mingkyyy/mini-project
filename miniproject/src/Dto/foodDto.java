@@ -1,5 +1,7 @@
 package Dto;
 
+import javax.swing.ImageIcon;
+
 public class foodDto {
 	int foodno;
 	String foodname;
