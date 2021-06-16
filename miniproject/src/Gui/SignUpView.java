@@ -122,7 +122,6 @@ public class SignUpView extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("aaa");
 		String name = nameField.getText();
 		String id = idField.getText();
 		String pw = pwField.getText();
@@ -155,6 +154,7 @@ public class SignUpView extends JFrame implements ActionListener {
 		new MainView();
 
 	}
+
 
 	public static void main(String[] args) {
 		new SignUpView();

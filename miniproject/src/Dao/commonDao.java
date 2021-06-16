@@ -214,27 +214,10 @@ public class commonDao {
 			e.printStackTrace();
 		}
 	}
-	
-	public int delete(String id) {
-		String sql = "DELETE FROM common WHERE id = ?";
-		int deletedRow = 0;
-		try {
-			conn = getConnection();
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, id);
-			deletedRow = ps.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close(conn, ps);
-		}
-		return deletedRow;
-	}
-	
 	public int loginCheck(String userID, String userPassword) {
 		try {
 			conn = DatabaseUtil.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM COMMON WHERE id = ?");
+			ps = conn.prepareStatement("SELECT * FROM common WHERE id = ?");
 			ps.setString(1, userID);
 			rs = ps.executeQuery();
 			if (rs.next()) {
@@ -252,6 +235,22 @@ public class commonDao {
 		}
 		return -2; //db오류
 
+	}
+
+	public int delete(String id) {
+		String sql = "DELETE FROM common WHERE id = ?";
+		int deletedRow = 0;
+		try {
+			conn = getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, id);
+			deletedRow = ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, ps);
+		}
+		return deletedRow;
 	}
 	public static void main(String[] args) {
 		
