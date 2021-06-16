@@ -2,6 +2,7 @@ package Gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.TextArea;
@@ -60,16 +61,16 @@ public class StoreView extends JFrame implements ActionListener {
 
 		textarea2 = new TextArea();
 		textarea2.setPreferredSize(new Dimension(400, 200));
+		
+		imageicon = new ImageIcon("food15.jpg");
+		imageicon=imageSetSize(imageicon, 120, 100);
 
 		String[] header = { "음식이름", "음식금액", "음식 사진" };
-		String[][] contents = {
-
+		Object[][] contents = {
+				
 		};
 		
-		//imageicon = new ImageIcon(foodpicture);
-		//imageicon=imageSetSize(imageicon, 200, 20); //이미지 크기 조절
-
-
+		
 		DefaultTableModel model = new DefaultTableModel(contents, header) {
 
 			@Override // 입력된 형태로 반환 
@@ -86,23 +87,28 @@ public class StoreView extends JFrame implements ActionListener {
 			}
 
 		};
-		
-		table = new JTable(model){// 테이블 수정 불가
-		@Override
+		table = new JTable(model) { // 테이블 수정 불가
+			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
-		}
-	 	};
+			}
+		};
+
+		
+		table.setPreferredScrollableViewportSize(table.getPreferredSize());
+		table.setFont(new Font("Magneto 굵게", Font.BOLD, 15));
+		
+		DefaultTableCellRenderer dtc = new DefaultTableCellRenderer(); // table 안의 값 가운데 정렬
+		dtc.setHorizontalAlignment(SwingConstants.CENTER);
+		TableColumnModel tcm = table.getColumnModel();
+		
+		for (int i = 0; i < 2; i++) {
+			tcm.getColumn(i).setCellRenderer(dtc);
+	}
+		
 		scrollPane = new JScrollPane(table);
 	     table.setRowHeight(120);
 
-		DefaultTableCellRenderer dtc = new DefaultTableCellRenderer(); // table 안의 값 강누데 정렬
-		dtc.setHorizontalAlignment(SwingConstants.CENTER);
-		TableColumnModel tcm = table.getColumnModel();
-		for (int i = 0; i < table.getColumnCount(); i++) {
-			tcm.getColumn(i).setCellRenderer(dtc);
-
-		}
 
 		addbutton = new JButton("추가");
 		addbutton.setPreferredSize(new Dimension(150, 100));
