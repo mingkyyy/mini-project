@@ -34,7 +34,7 @@ public class StoreView extends JFrame implements ActionListener {
 	private JScrollPane scrollPane;
 	ImageIcon imageicon;
 	foodDto fooddto;
-	// foodDao fooddao;
+	
 	
 	ImageIcon imageSetSize(ImageIcon icon, int i, int j ) { //이미지 크기 조절 클래스
 		Image ximg=icon.getImage();
@@ -53,7 +53,7 @@ public class StoreView extends JFrame implements ActionListener {
 		setSize(800, 800);
 		setLocationRelativeTo(null);
 		
-		storename = new JLabel("가게 이름");
+		storename = new JLabel("손 반찬");
 
 		textarea = new TextArea();
 		textarea.setPreferredSize(new Dimension(400, 600));
@@ -67,12 +67,12 @@ public class StoreView extends JFrame implements ActionListener {
 		};
 		
 		//imageicon = new ImageIcon(foodpicture);
-		//imageicon=imageSetSize(imageicon, 200, 100); //이미지 크기 조절
+		//imageicon=imageSetSize(imageicon, 200, 20); //이미지 크기 조절
 
 
 		DefaultTableModel model = new DefaultTableModel(contents, header) {
 
-			@Override // 입력된 형태로 반환 : 사진 안 뜸
+			@Override // 입력된 형태로 반환 
 			public Class<?> getColumnClass(int column) {
 				switch (column) {
 				case 0:
@@ -86,14 +86,15 @@ public class StoreView extends JFrame implements ActionListener {
 			}
 
 		};
-		table = new JTable(model) { // 테이블 수정 불가
-			@Override
+		
+		table = new JTable(model){// 테이블 수정 불가
+		@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
-			}
-		};
+		}
+	 	};
 		scrollPane = new JScrollPane(table);
-		table.setRowHeight(80);
+	     table.setRowHeight(120);
 
 		DefaultTableCellRenderer dtc = new DefaultTableCellRenderer(); // table 안의 값 강누데 정렬
 		dtc.setHorizontalAlignment(SwingConstants.CENTER);
@@ -169,12 +170,12 @@ public class StoreView extends JFrame implements ActionListener {
 			foodprice = Integer.parseInt(JOptionPane.showInputDialog("추가할 음식 가격을 입력하세요"));
 			foodpictrue = JOptionPane.showInputDialog("추가할 사진 경로를 입력하세요");
 			imageicon = new ImageIcon(foodpictrue);
-			imageicon=imageSetSize(imageicon, 200, 100); 
+			imageicon=imageSetSize(imageicon, 120, 100); 
+			
+
 			
 			DefaultTableModel m = (DefaultTableModel) table.getModel();
 			m.insertRow(0, new Object[] { foodname, foodprice, imageicon });
-			// table.updateUI();
-			
 			
 
 			fooddto = new foodDto();

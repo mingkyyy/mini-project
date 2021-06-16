@@ -15,7 +15,8 @@ import javax.swing.JPanel;
 public class MainView extends JFrame implements ActionListener{
 private JButton loginButton, signUpButton;
 private JButton findButton, myShopButton;
-private CardLayout card;
+
+
 
 	public MainView() {
 		super("반찬 on subway");
@@ -43,7 +44,7 @@ private CardLayout card;
 		
 		findButton = new JButton("가게 찾기");
 		findButton.addActionListener(this);
-		myShopButton = new JButton("찜한 가게");
+		myShopButton = new JButton("내 가게");
 		myShopButton.addActionListener(this);
 		
 		findButton.setBounds(150, 400, 150, 100);
@@ -92,7 +93,7 @@ private CardLayout card;
 			onSearchButtonClick();
 			break;
 		}
-		case "찜한 가게": {
+		case "내 가게": {
 			onFavoriteButtonClick();
 			break;
 		}
@@ -119,10 +120,11 @@ private CardLayout card;
 		
 		this.dispose();
 	}
+	
 	private void onFavoriteButtonClick() {
-		FavoriteView favoriteView = new FavoriteView();
-		favoriteView.setVisible(true);
-		favoriteView.setLocationRelativeTo(null);
+		StoreView storeView = new StoreView();
+		storeView.setVisible(true);
+		storeView.setLocationRelativeTo(null);
 		
 		this.dispose();
 	}

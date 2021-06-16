@@ -1,21 +1,17 @@
 package Gui;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -27,10 +23,10 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import Dao.ordersDao;
 import Dto.ordersDto;
+
 
 public class ClientView extends JFrame implements ActionListener, MouseListener {
 	private JPanel bigpanel, leftPanel, storePanel, rightPanel;
@@ -43,7 +39,7 @@ public class ClientView extends JFrame implements ActionListener, MouseListener 
 	SimpleDateFormat format;
 	Calendar time;
 	ordersDto ordersdto;
-	ImageIcon imageicon;
+	ImageIcon imageicon,imageicon2,imageicon3,imageicon4,imageicon5,imageicon6,imageicon7,imageicon8;
 	
 	ImageIcon imageSetSize(ImageIcon icon, int i, int j ) { //이미지 크기 조절 클래스
 		Image ximg=icon.getImage();
@@ -61,25 +57,41 @@ public class ClientView extends JFrame implements ActionListener, MouseListener 
 		setSize(800, 800);
 		setLocationRelativeTo(null);
 
-		//File imageDir = new File("./");
 		
 		
-		storename = new JLabel("가게 이름");
-		imageicon = new ImageIcon("dog.jpg");
-		imageicon=imageSetSize(imageicon, 200, 100); //이미지 크기 조절
+		storename = new JLabel("해드림찬도시락");
+		imageicon = new ImageIcon("food1.jpg");
+		imageicon2 = new ImageIcon("food2.jpg");
+		imageicon3= new ImageIcon("food13.jpg");
+		imageicon4 = new ImageIcon("food9.jpg");
+		imageicon5 = new ImageIcon("food10.jpg");
+		imageicon6 = new ImageIcon("food14.jpg");
+		imageicon7 = new ImageIcon("food12.jpg");
+		imageicon8 = new ImageIcon("food8.jpg");
+		
+		imageicon=imageSetSize(imageicon, 120, 100);
+		imageicon2=imageSetSize(imageicon2, 120, 100);
+		imageicon3=imageSetSize(imageicon3, 120, 100);
+		imageicon4=imageSetSize(imageicon4, 120, 100);
+		imageicon5=imageSetSize(imageicon5, 120, 100);
+		imageicon6=imageSetSize(imageicon6, 120, 100);
+		imageicon7=imageSetSize(imageicon7, 120, 100);
+		imageicon8=imageSetSize(imageicon8, 120, 100);
 		
 
 		String[] header = { "음식이름", "음식금액", "음식사진" };
 		Object[][] contents = { 
-				{ "a", "500", imageicon }, 
-				{ "b", "700", imageicon}, 
-				{ "c", "800", imageicon }
+				{ "두부조림", "3000", imageicon }, 
+				{ "오징어볶음", "6000", imageicon2 },
+				{ "김치", "4000", imageicon3 },
+				{ "갈치조림", "8000", imageicon4 },
+				{ "오므라이스", "4000", imageicon5 },
+				{ "도토리묵", "3000", imageicon6 },
+				{ "어묵볶음", "4000", imageicon7 },
+				{ "시금치", "3000", imageicon8 }
+			
 
 		};
-		
-		
-		
-		
 		
 		DefaultTableModel model = new DefaultTableModel(contents, header) {
 
@@ -107,15 +119,15 @@ public class ClientView extends JFrame implements ActionListener, MouseListener 
 		table.getColumn("음식금액").setPreferredWidth(200);
 		table.getColumn("음식사진").setPreferredWidth(200);
 		table.setPreferredScrollableViewportSize(table.getPreferredSize());
-
+		table.setFont(new Font("Magneto 굵게", Font.BOLD, 15));
+		
 		DefaultTableCellRenderer dtc = new DefaultTableCellRenderer(); // table 안의 값 가운데 정렬
 		dtc.setHorizontalAlignment(SwingConstants.CENTER);
 		TableColumnModel tcm = table.getColumnModel();
 		
 		for (int i = 0; i < 2; i++) {
 			tcm.getColumn(i).setCellRenderer(dtc);
-	}
-		
+	}	
 		table.addMouseListener(this);
 		scrollPane = new JScrollPane(table);
 		table.setRowHeight(100);
@@ -169,11 +181,11 @@ public class ClientView extends JFrame implements ActionListener, MouseListener 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(backButton)) {
-			new MainView();
+			new SearchView();
 			setVisible(false);
 		} else if (e.getSource().equals(orderButton)) {
-			JOptionPane.showMessageDialog(this, "주문 하시겠습니까?");
-			// 주문 확인버튼 누르면 주문 정보 테이블에 저장해야함.
+			JOptionPane.showMessageDialog(this, "주문 하시겠습니까?");// 주문 확인버튼 누르면 주문 정보 테이블에 저장해야함.
+			
 			format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			time = Calendar.getInstance();
 			String format_time = format.format(time.getTime());
@@ -188,7 +200,7 @@ public class ClientView extends JFrame implements ActionListener, MouseListener 
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void mouseClicked(MouseEvent e) { //버튼 클릭했을때
 
 		int row = table.getSelectedRow();
 		String foodname = (String) table.getValueAt(row, 0);
@@ -196,6 +208,10 @@ public class ClientView extends JFrame implements ActionListener, MouseListener 
 		textarea.setText(textarea.getText() + foodname + " : " + foodprice + "원" + "\n");
 		sum += Integer.parseInt((String) table.getValueAt(row, 1));
 		textarea2.setText("총 금액" + sum + "원");
+		
+		
+		
+		
 
 	}
 

@@ -38,6 +38,37 @@ public class commonDao {
 	private ResultSet rs;
 	private PreparedStatement ps;
 	
+	public commonDto findById(String id) {
+		String sql = "SELECT * FROM common WHERE id = ?";
+		commonDto dto = null;
+		try {
+			conn = getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, id);
+			rs = ps.executeQuery();
+
+			if (rs.next()) {
+				dto = new commonDto();
+				dto.setNo(rs.getInt(1));
+				dto.setName(rs.getString(2));
+				dto.setId(rs.getString(3));
+				dto.setPassword(rs.getString(4));
+				dto.setPhone(rs.getString(5));
+				dto.setZip(rs.getString(6));
+				dto.setAdress(rs.getString(7));
+				dto.setAdress_detail(rs.getString(8));
+				dto.setType(rs.getInt(9));
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, ps, rs);
+		}
+		return dto;
+	}
+	
+	
 	public commonDto findByNo(int no){
 		String sql = "SELECT * FROM common WHERE no = ?";
 		commonDto dto = null;
@@ -183,14 +214,31 @@ public class commonDao {
 			e.printStackTrace();
 		}
 	}
+	
+	public int delete(String id) {
+		String sql = "DELETE FROM common WHERE id = ?";
+		int deletedRow = 0;
+		try {
+			conn = getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, id);
+			deletedRow = ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, ps);
+		}
+		return deletedRow;
+	}
+	
 	public int loginCheck(String userID, String userPassword) {
 		try {
 			conn = DatabaseUtil.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM tomcat WHERE userid = ?");
-			ps.setString(2, userID);
+			ps = conn.prepareStatement("SELECT * FROM COMMON WHERE id = ?");
+			ps.setString(1, userID);
 			rs = ps.executeQuery();
 			if (rs.next()) {
-				if (rs.getString(3).contentEquals(userPassword)) {
+				if (rs.getString("password").contentEquals(userPassword)) {
 					return 1; // 로그인 성공
 				}
 				else {
@@ -205,7 +253,9 @@ public class commonDao {
 		return -2; //db오류
 
 	}
-
+	public static void main(String[] args) {
+		
+	}
 
 }
 	
