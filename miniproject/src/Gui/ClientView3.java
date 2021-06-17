@@ -36,7 +36,7 @@ import Dto.ordersDto;
 
 /**
  * 
- * 가게3. 가게에서 반찬을 주문하는 시스템
+ * 가게3, 일반 손님이 가게에서 반찬을 주문 할 수 있는 gui
  *
  */
 public class ClientView3 extends JFrame implements ActionListener, MouseListener {

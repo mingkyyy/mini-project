@@ -28,7 +28,7 @@ import Dto.ordersDto;
 
 /**
  * 
- * 가게1. 가게에서 반찬을 주문하는 시스템
+ * 가게1, 일반 손님이 가게에서 반찬을 주문 할 수 있는 gui
  *
  */
 public class ClientView extends JFrame implements ActionListener, MouseListener {
@@ -194,7 +194,9 @@ public class ClientView extends JFrame implements ActionListener, MouseListener 
 		new ClientView();
 
 	}
-	
+	/**
+	 * 주문 날짜표시, 주문 합
+	 */
 	@Override	
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(backButton)) { 

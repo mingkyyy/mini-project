@@ -26,7 +26,7 @@ import Dao.foodDao;
 import Dto.foodDto;
 /**
  * 
- * @author 김민경
+ * 가게가 음식 추가,수정,삭제 할 수 있는 gui
  *
  */
 
@@ -184,9 +184,11 @@ public class StoreView extends JFrame implements ActionListener {
 		new StoreView();
 
 	}
-
+/**
+ * 음식 추가, 수정, 삭제
+ */
 	@Override
-	public void actionPerformed(ActionEvent e) {// 음식 추가
+	public void actionPerformed(ActionEvent e) {
 		String foodname = null;
 		int foodprice = 0;
 		String foodpictrue=null;
