@@ -24,6 +24,11 @@ import javax.swing.table.TableColumnModel;
 
 import Dao.foodDao;
 import Dto.foodDto;
+/**
+ * 
+ * @author 김민경
+ *
+ */
 
 public class StoreView extends JFrame implements ActionListener {
 	private JPanel bigpanel, leftPanel, rightlPanel, storePanel, buttonPanel;
@@ -36,7 +41,13 @@ public class StoreView extends JFrame implements ActionListener {
 	ImageIcon imageicon;
 	foodDto fooddto;
 	
-	
+	/**
+	 * 
+	 * @param icon 사진 
+	 * @param i 가로 길이
+	 * @param j 세로 길이
+	 * @return 가로길이와 세로 길이가 정해진 사진
+	 */
 	ImageIcon imageSetSize(ImageIcon icon, int i, int j ) { //이미지 크기 조절 클래스
 		Image ximg=icon.getImage();
 		Image yimg=ximg.getScaledInstance(i, j, Image.SCALE_SMOOTH);
@@ -70,10 +81,12 @@ public class StoreView extends JFrame implements ActionListener {
 				
 		};
 		
-		
+	
 		DefaultTableModel model = new DefaultTableModel(contents, header) {
-
-			@Override // 입력된 형태로 반환 
+/**
+ * 입력된 형태 그대로 반환
+ */
+			@Override 
 			public Class<?> getColumnClass(int column) {
 				switch (column) {
 				case 0:
@@ -87,7 +100,10 @@ public class StoreView extends JFrame implements ActionListener {
 			}
 
 		};
-		table = new JTable(model) { // 테이블 수정 불가
+		/**
+		 * 테이블 수정 불가
+		 */
+		table = new JTable(model) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
@@ -98,7 +114,10 @@ public class StoreView extends JFrame implements ActionListener {
 		table.setPreferredScrollableViewportSize(table.getPreferredSize());
 		table.setFont(new Font("Magneto 굵게", Font.BOLD, 15));
 		
-		DefaultTableCellRenderer dtc = new DefaultTableCellRenderer(); // table 안의 값 가운데 정렬
+		/**
+		 * jtable 안의 값 수정 불가
+		 */
+		DefaultTableCellRenderer dtc = new DefaultTableCellRenderer();
 		dtc.setHorizontalAlignment(SwingConstants.CENTER);
 		TableColumnModel tcm = table.getColumnModel();
 		
@@ -240,7 +259,7 @@ public class StoreView extends JFrame implements ActionListener {
 				}
 
 			}
-		} else if (e.getSource().equals(backButton)) { // 백 메인 화면으로 가기
+		} else if (e.getSource().equals(backButton)) { 
 			new MainView();
 			setVisible(false);
 

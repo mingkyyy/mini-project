@@ -93,12 +93,6 @@ public class LoginView extends JFrame implements ActionListener {
 		commonDao dao = commonDao.getInstance();
 		int result = dao.loginCheck(id, pw);
 		if(result == 1) {
-			MainClientView mainClientView = new MainClientView();
-			mainClientView.setVisible(true);
-			mainClientView.setLocationRelativeTo(null);
-			CurrentUser.id = id;
-			
-			dispose();
 			
 		}else if(result ==0) {
 			
@@ -111,6 +105,13 @@ public class LoginView extends JFrame implements ActionListener {
 			JOptionPane.showMessageDialog(this, "데이터베이스 오류");
 		}
 			
+		MainClientView mainClientView = new MainClientView();
+		
+		mainClientView.setVisible(true);
+		mainClientView.setLocationRelativeTo(null);
+		CurrentUser.id = id;
+		
+		dispose();
 		
 		
 		

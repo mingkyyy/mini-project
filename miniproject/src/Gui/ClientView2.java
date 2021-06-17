@@ -1,5 +1,6 @@
 package Gui;
 
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -28,10 +29,10 @@ import Dto.ordersDto;
 
 /**
  * 
- * 가게1. 가게에서 반찬을 주문하는 시스템
+ * 가게2. 가게에서 반찬을 주문하는 시스템
  *
  */
-public class ClientView extends JFrame implements ActionListener, MouseListener {
+public class ClientView2 extends JFrame implements ActionListener, MouseListener {
 	private JPanel bigpanel, leftPanel, storePanel, rightPanel;
 	private TextArea textarea, textarea2;
 	private JButton backButton, orderButton;
@@ -46,39 +47,36 @@ public class ClientView extends JFrame implements ActionListener, MouseListener 
 	
 	/**
 	 * 
-	 * @param icon 화면에 표시될 사진 이미지 아이콘
-	 * @param i 가로 길이
-	 * @param j 세로 길이
-	 * @return 가로와 세로길이를 정한 이미지 아이콘
-	 * 
-	 * jtable imageicon 사진 고정 시킴
+	 * @param icon 화면에 표시될 이미지 아이콘
+	 * @param i 가로축의 길이
+	 * @param j 세로축의 길이
+	 * @return 가로세로축의 길이로 조절된 이미지 아이콘
 	 */
-	ImageIcon imageSetSize(ImageIcon icon, int i, int j ) { 
+	ImageIcon imageSetSize(ImageIcon icon, int i, int j ) { //이미지 크기 조절 클래스
 		Image ximg=icon.getImage();
 		Image yimg=ximg.getScaledInstance(i, j, Image.SCALE_SMOOTH);
 		ImageIcon xyimg=new ImageIcon(yimg);
 		return xyimg;
 	}
 	
+	
 
-	public ClientView() {
+	public ClientView2() {
 
-		super("미니 프로젝트");
+		super("모녀소반");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(800, 800);
 		setLocationRelativeTo(null);
-
-		
-		
-		storename = new JLabel("해드림찬도시락");
-		imageicon = new ImageIcon("food1.jpg");
-		imageicon2 = new ImageIcon("food2.jpg");
-		imageicon3= new ImageIcon("food13.jpg");
-		imageicon4 = new ImageIcon("food9.jpg");
-		imageicon5 = new ImageIcon("food10.jpg");
-		imageicon6 = new ImageIcon("food14.jpg");
-		imageicon7 = new ImageIcon("food12.jpg");
-		imageicon8 = new ImageIcon("food8.jpg");
+				
+		storename = new JLabel("가게2");
+		imageicon = new ImageIcon("food15.jpg");
+		imageicon2 = new ImageIcon("food16.jpg");
+		imageicon3= new ImageIcon("food17.jpg");
+		imageicon4 = new ImageIcon("food18.jpg");
+		imageicon5 = new ImageIcon("food19.jpg");
+		imageicon6 = new ImageIcon("food23.jpg");
+		imageicon7 = new ImageIcon("food21.jpg");
+		imageicon8 = new ImageIcon("food22.jpg");
 		
 		imageicon=imageSetSize(imageicon, 120, 100);
 		imageicon2=imageSetSize(imageicon2, 120, 100);
@@ -92,22 +90,23 @@ public class ClientView extends JFrame implements ActionListener, MouseListener 
 
 		String[] header = { "음식이름", "음식금액", "음식사진" };
 		Object[][] contents = { 
-				{ "두부조림", "3000", imageicon }, 
-				{ "오징어볶음", "6000", imageicon2 },
-				{ "김치", "4000", imageicon3 },
-				{ "갈치조림", "8000", imageicon4 },
-				{ "오므라이스", "4000", imageicon5 },
-				{ "도토리묵", "3000", imageicon6 },
-				{ "어묵볶음", "4000", imageicon7 },
-				{ "시금치", "3000", imageicon8 }
+				{ "부침개", "4000", imageicon }, 
+				{ "오이소박이", "3000", imageicon2}, 
+				{ "감자조림", "5000", imageicon3 },
+				{ "단호박샐러드", "2000", imageicon4 },
+				{ "가지볶음", "3000", imageicon5 },
+				{ "잡채", "5000", imageicon6 },
+				{ "모듬나물", "5500", imageicon7 },
+				{ "동그랑땡", "4500", imageicon8 }
 			
 
-		};
+		};	
 		/**
 		 * jtable imageicon String 형이 아니라 imageicon 으로 보여지게 함
 		 */	
-		DefaultTableModel model = new DefaultTableModel(contents, header) {			
-			@Override // 입력된 형태로 반환 : 사진 안 뜸
+		DefaultTableModel model = new DefaultTableModel(contents, header) {
+
+			@Override 
 			public Class<?> getColumnClass(int column) {
 				switch (column) {
 				case 0:
@@ -119,6 +118,7 @@ public class ClientView extends JFrame implements ActionListener, MouseListener 
 					return String.class;
 				}
 			}
+
 		};
 		/**
 		 * Jtable 샐 수정 불가
@@ -134,17 +134,18 @@ public class ClientView extends JFrame implements ActionListener, MouseListener 
 		table.getColumn("음식사진").setPreferredWidth(200);
 		table.setPreferredScrollableViewportSize(table.getPreferredSize());
 		table.setFont(new Font("Magneto 굵게", Font.BOLD, 15));
-		
+
 		/**
 		 * jtable 값 가운데 정렬
 		 */
-		DefaultTableCellRenderer dtc = new DefaultTableCellRenderer(); 
+		DefaultTableCellRenderer dtc = new DefaultTableCellRenderer(); // table 안의 값 가운데 정렬
 		dtc.setHorizontalAlignment(SwingConstants.CENTER);
 		TableColumnModel tcm = table.getColumnModel();
 		
 		for (int i = 0; i < 2; i++) {
 			tcm.getColumn(i).setCellRenderer(dtc);
-	}	
+	}
+		
 		table.addMouseListener(this);
 		scrollPane = new JScrollPane(table);
 		table.setRowHeight(100);
@@ -191,20 +192,21 @@ public class ClientView extends JFrame implements ActionListener, MouseListener 
 	}
 
 	public static void main(String[] args) {
-		new ClientView();
+		new ClientView2();
 
 	}
+
+	@Override
 	
-	@Override	
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource().equals(backButton)) { 
+		if (e.getSource().equals(backButton)) {
 			new SearchView();
 			setVisible(false);
-		} else if (e.getSource().equals(orderButton)) {  
+		} else if (e.getSource().equals(orderButton)) {
 			JOptionPane.showMessageDialog(this, "주문 하시겠습니까?");
-						format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			time = Calendar.getInstance();
 			
+			format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			time = Calendar.getInstance();
 			String format_time = format.format(time.getTime());
 			ordersdto = new ordersDto();
 			ordersdto.setOrderdata(format_time);
@@ -215,24 +217,25 @@ public class ClientView extends JFrame implements ActionListener, MouseListener 
 		}
 
 	}
-	
 	/**
 	 * 사용자가 주문 총 합
 	 */
 	@Override
-	public void mouseClicked(MouseEvent e) { 
+	public void mouseClicked(MouseEvent e) {
+
 		int row = table.getSelectedRow();
 		String foodname = (String) table.getValueAt(row, 0);
 		String foodprice = (String) table.getValueAt(row, 1);
 		textarea.setText(textarea.getText() + foodname + " : " + foodprice + "원" + "\n");
 		sum += Integer.parseInt((String) table.getValueAt(row, 1));
 		textarea2.setText("총 금액" + sum + "원");
+
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 	}
-	
+
 	@Override
 	public void mouseReleased(MouseEvent e) {
 	}

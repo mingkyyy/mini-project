@@ -1,5 +1,6 @@
 package Gui;
 
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -11,6 +12,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,16 +24,16 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+
 import javax.swing.table.TableColumnModel;
 import Dao.ordersDao;
 import Dto.ordersDto;
-
 /**
  * 
- * 가게1. 가게에서 반찬을 주문하는 시스템
+ * 가게4. 가게에서 반찬을 주문하는 시스템
  *
  */
-public class ClientView extends JFrame implements ActionListener, MouseListener {
+public class ClientView4 extends JFrame implements ActionListener, MouseListener {
 	private JPanel bigpanel, leftPanel, storePanel, rightPanel;
 	private TextArea textarea, textarea2;
 	private JButton backButton, orderButton;
@@ -46,12 +48,10 @@ public class ClientView extends JFrame implements ActionListener, MouseListener 
 	
 	/**
 	 * 
-	 * @param icon 화면에 표시될 사진 이미지 아이콘
+	 * @param icon 화면에 표시될 이미지 아이콘
 	 * @param i 가로 길이
 	 * @param j 세로 길이
-	 * @return 가로와 세로길이를 정한 이미지 아이콘
-	 * 
-	 * jtable imageicon 사진 고정 시킴
+	 * @return 가로, 세로크기로 조절된 이미지 아이콘
 	 */
 	ImageIcon imageSetSize(ImageIcon icon, int i, int j ) { 
 		Image ximg=icon.getImage();
@@ -60,25 +60,27 @@ public class ClientView extends JFrame implements ActionListener, MouseListener 
 		return xyimg;
 	}
 	
+	
 
-	public ClientView() {
+	public ClientView4() {
 
 		super("미니 프로젝트");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(800, 800);
 		setLocationRelativeTo(null);
 
+	
 		
 		
-		storename = new JLabel("해드림찬도시락");
-		imageicon = new ImageIcon("food1.jpg");
-		imageicon2 = new ImageIcon("food2.jpg");
-		imageicon3= new ImageIcon("food13.jpg");
-		imageicon4 = new ImageIcon("food9.jpg");
-		imageicon5 = new ImageIcon("food10.jpg");
-		imageicon6 = new ImageIcon("food14.jpg");
-		imageicon7 = new ImageIcon("food12.jpg");
-		imageicon8 = new ImageIcon("food8.jpg");
+		storename = new JLabel("예미찬방");
+		imageicon = new ImageIcon("food6.jpg");
+		imageicon2 = new ImageIcon("food17.jpg");
+		imageicon3= new ImageIcon("food32.jpg");
+		imageicon4 = new ImageIcon("food19.jpg");
+		imageicon5 = new ImageIcon("food2.jpg");
+		imageicon6 = new ImageIcon("food8.jpg");
+		imageicon7 = new ImageIcon("food31.jpg");
+		imageicon8 = new ImageIcon("food23.jpg");
 		
 		imageicon=imageSetSize(imageicon, 120, 100);
 		imageicon2=imageSetSize(imageicon2, 120, 100);
@@ -92,22 +94,24 @@ public class ClientView extends JFrame implements ActionListener, MouseListener 
 
 		String[] header = { "음식이름", "음식금액", "음식사진" };
 		Object[][] contents = { 
-				{ "두부조림", "3000", imageicon }, 
-				{ "오징어볶음", "6000", imageicon2 },
-				{ "김치", "4000", imageicon3 },
-				{ "갈치조림", "8000", imageicon4 },
-				{ "오므라이스", "4000", imageicon5 },
-				{ "도토리묵", "3000", imageicon6 },
-				{ "어묵볶음", "4000", imageicon7 },
-				{ "시금치", "3000", imageicon8 }
+				{ "갈치조림", "8500", imageicon }, 
+				{ "감자조림", "45000", imageicon2}, 
+				{ "멸치볶음", "4000", imageicon3 },
+				{ "어묵볶음", "3500", imageicon4 },
+				{ "낚지볶음", "77000", imageicon5 },
+				{ "시금치", "4000", imageicon6 },
+				{ "장조림", "3500", imageicon7 },
+				{ "잡채", "4800", imageicon8 }
 			
 
 		};
+		
 		/**
 		 * jtable imageicon String 형이 아니라 imageicon 으로 보여지게 함
 		 */	
-		DefaultTableModel model = new DefaultTableModel(contents, header) {			
-			@Override // 입력된 형태로 반환 : 사진 안 뜸
+		DefaultTableModel model = new DefaultTableModel(contents, header) {
+
+			@Override 
 			public Class<?> getColumnClass(int column) {
 				switch (column) {
 				case 0:
@@ -119,6 +123,7 @@ public class ClientView extends JFrame implements ActionListener, MouseListener 
 					return String.class;
 				}
 			}
+
 		};
 		/**
 		 * Jtable 샐 수정 불가
@@ -138,13 +143,14 @@ public class ClientView extends JFrame implements ActionListener, MouseListener 
 		/**
 		 * jtable 값 가운데 정렬
 		 */
-		DefaultTableCellRenderer dtc = new DefaultTableCellRenderer(); 
+		DefaultTableCellRenderer dtc = new DefaultTableCellRenderer(); // table 안의 값 가운데 정렬
 		dtc.setHorizontalAlignment(SwingConstants.CENTER);
 		TableColumnModel tcm = table.getColumnModel();
 		
 		for (int i = 0; i < 2; i++) {
 			tcm.getColumn(i).setCellRenderer(dtc);
-	}	
+	}
+		
 		table.addMouseListener(this);
 		scrollPane = new JScrollPane(table);
 		table.setRowHeight(100);
@@ -191,20 +197,20 @@ public class ClientView extends JFrame implements ActionListener, MouseListener 
 	}
 
 	public static void main(String[] args) {
-		new ClientView();
+		new ClientView4();
 
 	}
-	
-	@Override	
+
+	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource().equals(backButton)) { 
+		if (e.getSource().equals(backButton)) {
 			new SearchView();
 			setVisible(false);
-		} else if (e.getSource().equals(orderButton)) {  
+		} else if (e.getSource().equals(orderButton)) {
 			JOptionPane.showMessageDialog(this, "주문 하시겠습니까?");
-						format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			// 주문 확인버튼 누르면 주문 정보 테이블에 저장해야함.
+			format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			time = Calendar.getInstance();
-			
 			String format_time = format.format(time.getTime());
 			ordersdto = new ordersDto();
 			ordersdto.setOrderdata(format_time);
@@ -215,24 +221,25 @@ public class ClientView extends JFrame implements ActionListener, MouseListener 
 		}
 
 	}
-	
 	/**
 	 * 사용자가 주문 총 합
 	 */
 	@Override
-	public void mouseClicked(MouseEvent e) { 
+	public void mouseClicked(MouseEvent e) {
+
 		int row = table.getSelectedRow();
 		String foodname = (String) table.getValueAt(row, 0);
 		String foodprice = (String) table.getValueAt(row, 1);
 		textarea.setText(textarea.getText() + foodname + " : " + foodprice + "원" + "\n");
 		sum += Integer.parseInt((String) table.getValueAt(row, 1));
 		textarea2.setText("총 금액" + sum + "원");
+
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 	}
-	
+
 	@Override
 	public void mouseReleased(MouseEvent e) {
 	}

@@ -10,7 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Dto.foodDto;
-
+/**
+ * 
+ * Datebase에 접근하는 객체, db를 사용하여 음식 메뉴 관리에 관한 데이터를 조작한다
+ *
+ */
 public class foodDao {
 	private static foodDao instance;
 	public foodDao() {
@@ -37,6 +41,11 @@ public class foodDao {
 	private ResultSet rs;
 	private PreparedStatement ps;
 	
+	/**
+	 * 
+	 * @param foodname 음식이름을 찾음
+	 * @return dto foodname 변경
+	 */
 	public foodDto findByfoodname(String foodname){
 		String sql = "SELECT * FROM food WHERE foodname = ?";
 		foodDto dto = null;
@@ -62,6 +71,12 @@ public class foodDao {
 		}
 		return dto;
 	}
+	/**
+	 * 
+	 * @param foodno food 테이블에서 foodno 찾음
+	 * @return fooddto에서 foodno 번호 바꿈
+	 * 
+	 */
 	public foodDto findByfoodNo(int foodno){
 		String sql = "SELECT * FROM food WHERE foodno = ?";
 		foodDto dto = null;
@@ -87,6 +102,11 @@ public class foodDao {
 		return dto;
 	}
 	
+	/**
+	 * 
+	 * @param dto fooddto에 있는 setter 값을 삽입한다
+	 * @return 삽입한 값 저장
+	 */
 	public int insert(foodDto dto){
 		String sql = "INSERT INTO food(foodname, foodprice, foodpicture) "
 				+ "VALUES(?, ?, ?)";
@@ -114,7 +134,12 @@ public class foodDao {
 		}
 		return foodno;
 	}
-	
+	/**
+	 * 
+	 * @param foodno 삭제하고 싶은 foodno를 찾는다
+	 * @return foodno에 있는 행 전체를 삭제한다
+	 * 
+	 */
 	public int delete(int foodno){
 		String sql = "DELETE FROM food WHERE foodno = ?"; 
 		int deletedRow = 0;
@@ -131,6 +156,9 @@ public class foodDao {
 		return deletedRow;
 	}
 	
+	/**
+	 * @return
+	 */
 	List<foodDto> findAll(){
 		String sql = "SELECT * FROM food";
 		List<foodDto> list = new ArrayList<>();
@@ -158,7 +186,11 @@ public class foodDao {
 		}
 		return list.isEmpty() ? null : list;
 	}
-	
+	/**
+	 * 
+	 * @param dto 업데이트 하고 싶은 값 저장
+	 * @return
+	 */
 	public int update(foodDto dto){ 
 		String sql = "UPDATE food SET foodname=?, foodprice=?,foodpicture=?  WHERE foodno = ?";
 		int updatedRow = -1;
@@ -178,10 +210,15 @@ public class foodDao {
 		return updatedRow;
 	}
 	
-	
+	/**
+	 * 
+	 * @return
+	 * @throws SQLException
+	 */
 	private Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
 	}
+	
 	
 	private void close(Connection conn, PreparedStatement ps) {
 		close(conn, ps, null); 
@@ -197,13 +234,13 @@ public class foodDao {
 		}
 	}
 	public static void main(String[] args) {
-		foodDao dao = foodDao.getInstance();
-		foodDto dto = new foodDto();
-		dto.setFoodname("음식이름");
-		dto.setFoodprice(88);
-		dto.setFoodpicture("사진 경로");
+	//	foodDao dao = foodDao.getInstance();
+		//foodDto dto = new foodDto();
+		//dto.setFoodname("음식이름");
+		//dto.setFoodprice(88);
+		//dto.setFoodpicture("사진 경로");
 		
-		dao.insert(dto); 
+		//dao.insert(dto); 
 		
 	}
 

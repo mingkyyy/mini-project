@@ -1,6 +1,7 @@
 package Dao;
 
 import java.sql.Connection;
+
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,6 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Dto.storeDto;
+
+/**
+ * 
+ * Datebase에 접근하는 객체, db를 사용하여 가게 관리에 관한 데이터를 조작한다
+ *
+ */
 
 public class storeDao {
 	private static storeDao instance;

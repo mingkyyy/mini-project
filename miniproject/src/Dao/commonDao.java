@@ -8,15 +8,17 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
-
 import Dto.commonDto;
 import util.DatabaseUtil;
 
+/**
+ * 
+ * Datebase에 접근하는 객체, db를 사용하여 회원 관리에 관한 데이터를 조작한다
+ *
+ */
+
 public class commonDao {
-
 	private static commonDao instance;
-
 	private commonDao() {
 		try {
 			Class.forName(JDBC_DRIVER);
@@ -216,7 +218,7 @@ public class commonDao {
 	public int loginCheck(String userID, String userPassword) {
 		try {
 			conn = DatabaseUtil.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM COMMON WHERE id = ?");
+			ps = conn.prepareStatement("SELECT * FROM common WHERE id = ?");
 			ps.setString(1, userID);
 			rs = ps.executeQuery();
 			if (rs.next()) {
@@ -255,17 +257,7 @@ public class commonDao {
 	
 
 	public static void main(String[] args) {
-//		CommonDao dao = CommonDao.getInstance();
-//		CommonDto dto = new CommonDto();
-//		dto.setName("김김김");
-//		dto.setId("kimkimkim");
-//		dto.setPassword("12df456");
-//		dto.setPhoneNumber("010-555-555");
-//		dto.setZip("우편번호");
-//		dto.setAdress("서울 특별시");
-//		dto.setAdress_detail("무슨무슨 아파트");
-//		dto.setType(0);
-//		dao.insert(dto);
+
 
 	}
 

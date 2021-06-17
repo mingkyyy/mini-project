@@ -1,4 +1,9 @@
 package Dto;
+/**
+ * 
+ * 가게 관한 데이터 객체,  getter/setter 메서드 를 갖는다
+ *
+ */
 
 public class storeDto {
 	int storeno;

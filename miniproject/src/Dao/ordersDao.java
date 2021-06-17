@@ -11,6 +11,13 @@ import java.util.List;
 
 import Dto.ordersDto;
 
+
+/**
+ * 
+ * Datebase에 접근하는 객체, db를 사용하여 주문 관리에 관한 데이터를 조작한다
+ *
+ */
+
 public class ordersDao {
 	private static ordersDao instance;
 	private ordersDao() {

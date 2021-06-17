@@ -1,7 +1,12 @@
 package Dto;
 
-import javax.swing.ImageIcon;
 
+/**
+ * 
+ * 음식 메뉴 관리에 관한 데이터 객체,  getter/setter 메서드 를 갖는다
+ *
+ */
+ 
 public class foodDto {
 	int foodno;
 	String foodname;
@@ -10,14 +15,10 @@ public class foodDto {
 	String foodpicture;
 	
 	
-	
-	
-
-	
-
 	public int getFoodno() {
 		return foodno;
 	}
+
 	public void setFoodno(int foodno) {
 		this.foodno = foodno;
 	}

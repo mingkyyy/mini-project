@@ -11,17 +11,18 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import javax.swing.JTextField;
 
-//import org.mariadb.jdbc.credential.aws.AwsIamCredentialPlugin;
-
+/**
+ 
+ * 신촌역을 검색하여 신초역 주변 반찬가게를 보여주는 Gui
+ *
+ */
 public class SearchView extends JFrame implements ActionListener,MouseListener {
 
 	private JPanel leftPanel;
@@ -34,6 +35,10 @@ public class SearchView extends JFrame implements ActionListener,MouseListener {
 	private JLabel store1,store2,store3,store4;
 	private JTextField searchField;
 	private JButton button, backButton;
+	final String STORNAME1="해드림찬도시락";
+	final String STORNAME2="모녀소반";
+	final String STORNAME3="다인네반찬";
+	final String STORNAME4="에미찬방";
 	
 	ImageIcon icon;
 
@@ -53,9 +58,7 @@ public class SearchView extends JFrame implements ActionListener,MouseListener {
 				MainView Mainview = new MainView();
 				Mainview.setVisible(true);
 				Mainview.setLocationRelativeTo(null);
-
 				dispose();
-
 			}
 		});
 
@@ -70,19 +73,19 @@ public class SearchView extends JFrame implements ActionListener,MouseListener {
 			}
 		};
 		
-		store1=new JLabel("해드림찬도시락");	
+		store1=new JLabel(STORNAME1);	
 		store1.setFont(new Font("Magneto 굵게", Font.BOLD, 20));
 		store1.addMouseListener(this);	
 		
-		store2=new JLabel("모녀소반");	
+		store2=new JLabel(STORNAME2);	
 		store2.setFont(new Font("Magneto 굵게", Font.BOLD, 20));
 		store2.addMouseListener(this);
 		
-		store3=new JLabel("다인네 반찬");
+		store3=new JLabel(STORNAME3);
 		store3.setFont(new Font("Magneto 굵게", Font.BOLD, 20));
 		store3.addMouseListener(this);	
 		
-		store4=new JLabel("예미찬방");
+		store4=new JLabel(STORNAME4);
 		store4.setFont(new Font("Magneto 굵게", Font.BOLD, 20));
 		store4.addMouseListener(this);
 		
@@ -101,7 +104,7 @@ public class SearchView extends JFrame implements ActionListener,MouseListener {
 
 		searchLabel = new JLabel("지하철 역을 입력하세요:");
 
-		smallPanel = new JPanel(); //상단 패널
+		smallPanel = new JPanel(); 
 		smallPanel.setLayout(new BorderLayout());
 		smallPanel.add(backButton, BorderLayout.WEST);
 
@@ -122,7 +125,9 @@ public class SearchView extends JFrame implements ActionListener,MouseListener {
 		setVisible(true);
 
 	}
-
+/**
+ * 신촌 검색 후 위도경도로 찾아 크롬을 통해 지도 보여줌
+ */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (searchField.getText().equals("신촌")) {
@@ -139,7 +144,9 @@ public class SearchView extends JFrame implements ActionListener,MouseListener {
 			}
 		}
 	}
-	
+	/**
+	 * 클릭한 가게로 이동
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) { 
 		//가게 이름 라벨 클릭하면 가게로 이동함
