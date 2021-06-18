@@ -15,7 +15,11 @@ import javax.swing.JTextField;
 
 import Dao.commonDao;
 
-
+/**
+ * 로그인 구현 gui
+ * @author alsru
+ *
+ */
 public class LoginView extends JFrame implements ActionListener {
 	JLabel login, pw, idLabel;
 	String id;
@@ -82,8 +86,10 @@ public class LoginView extends JFrame implements ActionListener {
 	}
 
 	
-		
-
+		/**
+		 * 텍스트필드에 쓴 아이디, 비밀번호를 비교해 로그인 하게 하는 메서드
+		 * {@link Dao.commonDao.loginCheck; "loginCheck 참고하기"}
+		 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		id = idField.getText();

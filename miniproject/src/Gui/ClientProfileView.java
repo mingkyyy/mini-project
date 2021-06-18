@@ -15,6 +15,11 @@ import javax.swing.JTextField;
 import Dao.commonDao;
 import Dto.commonDto;
 
+/**
+ * 회원 정보를 수정하거나 탈퇴 하게 할수있는 gui 클래스
+ * 
+ *
+ */
 public class ClientProfileView extends JFrame implements ActionListener {
 	JLabel name, clientProfile, phonenumber, zip, adress, adress_detail;
 	JTextField nameField, phonenumberField, zipField, adressField, adress_detailField;
@@ -111,6 +116,9 @@ public class ClientProfileView extends JFrame implements ActionListener {
 		}
 		
 	}
+	/**
+	 * 회원 정보를 변경할수 있는 메서드
+	 */
 	private void onModifyButtonClick() {
 		commonDto dto = commonDao.getInstance().findById(CurrentUser.id);
 		dto.setName(nameField.getText());
@@ -126,7 +134,9 @@ public class ClientProfileView extends JFrame implements ActionListener {
 		
 	}
 	
-	
+	/**
+	 * 회원 정보를 삭제할수 있는 메서드
+	 */
 	private void onLeaveButtonClick() {
 		commonDao.getInstance().delete(CurrentUser.id);
 		CurrentUser.id = null;

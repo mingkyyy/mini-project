@@ -145,6 +145,7 @@ public class ClientView extends JFrame implements ActionListener, MouseListener 
 		for (int i = 0; i < 2; i++) {
 			tcm.getColumn(i).setCellRenderer(dtc);
 	}	
+		
 		table.addMouseListener(this);
 		scrollPane = new JScrollPane(table);
 		table.setRowHeight(100);
@@ -195,7 +196,7 @@ public class ClientView extends JFrame implements ActionListener, MouseListener 
 
 	}
 	/**
-	 * 주문 날짜표시, 주문 합
+	 * 주문 날짜표시, 주문 합, 주문 시간 표시
 	 */
 	@Override	
 	public void actionPerformed(ActionEvent e) {

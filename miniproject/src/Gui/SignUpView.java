@@ -1,5 +1,6 @@
 package Gui;
 import java.awt.Dimension;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +14,11 @@ import javax.swing.JTextField;
 
 import Dao.commonDao;
 import Dto.commonDto;
+/**
+ * 회원가입을 구현하기 위한 GUI 클래스
+ * @author alsru
+ *
+ */
 
 public class SignUpView extends JFrame implements ActionListener {
 	JLabel name, signUp, id, pw, phonenumber, zip, adress, adress_detail;
@@ -119,7 +125,11 @@ public class SignUpView extends JFrame implements ActionListener {
 		setVisible(true);
 
 	}
-
+/**
+ * 회원가입 기능 구현 ActionListener 오버라이드 메서드
+ * ->textfield에 입력 받은 text를 String에 저장하고 dto, dao를 이용하여 데이터베이스에 저장
+ * {@link Dao.common.insert; "insert참고하기"}
+ */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String name = nameField.getText();

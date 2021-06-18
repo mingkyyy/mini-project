@@ -11,6 +11,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * 
+ * 미니프로젝트(반찬가게)를 실행한 메인 gui 실행 클래스
+ *
+ */
+
 public class MainView extends JFrame implements ActionListener{
 private JButton loginButton, signUpButton;
 private JButton findButton, myShopButton;
